@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body, html {
+      height: 93%;
+    }
+</style>
+
+
+<div class="container" style="height: 100%;">
+    <div class="mt-2 m-auto p-2 mb-5" style="border: 1px solid black; width:100%; height: 100%;">
+        <h1 class="m-2">토론방</h1>
+        <div class="m-2">
+            방제 : {{ chatroom.title }}
+        </div>
+        
+        <div style="border: 1px solid black; height: 85%;">
+            <div id="chat-log" 
+                class="m-auto p-2 mt-3 mb-3"
+                style="border:1px solid black; width:85%; height: 80%; overflow: scroll;"></div>
+            <div class="d-flex justify-content-center">
+                <input id="chat-message-input" type="text" style="width:75%; box-sizing: border-box;">
+                <input id="chat-message-submit" type="button" value="전송" onclick="send_msg();"style="width:18%; box-sizing: border-box;">
+            </div>
+            <!-- {{ room_name|json_script:"room-name" }} -->
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    var chatLog = document.getElementById("chat-log");
+    var chatInput = document.getElementById("chat-message-input");
+    chatInput.focus();
+    var chatEnter = document.getElementById("chat-message-submit");
+
+    const socket = new WebSocket('ws://127.0.0.1:8000/ws/chat/{{ chatroom.id }}');
+
+    socket.onopen = function() {
+        console.log('WebSocket 연결이 열렸습니다.');
+        var msg = "{{request.user.username }}님이 대화에 참여하셨습니다";
+        const message = {
+            'type': -1,
+            'message': msg
+        };
+        socket.send(JSON.stringify(message)); 
+    };
+
+    socket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        console.log('서버로부터 메시지를 받았습니다:', data.message);
+        var type = data.type;
+        var message = data.message;
+        console.log(type);
+        if (type == -1) {
+            var newDiv = document.createElement("div");
+            var newChat = document.createElement("div");
+            newDiv.classList = "d-flex justify-content-center"
+            newChat.classList = "border text-center"
+            newChat.textContent = data.message;
+            newDiv.append(newChat);
+            chatLog.append(newDiv);
+        }else if (type == {{ request.user.id }} ) {
+            var newDiv = document.createElement("div");
+            var newChat = document.createElement("div");
+            newDiv.classList = "d-flex justify-content-end"
+            newChat.classList = "d-inline-block rounded-2 bg-primary text-white border-bottom border-end"
+            newChat.textContent = data.message;
+            newDiv.append(newChat);
+            chatLog.append(newDiv);
+        }else {
+            var newDiv = document.createElement("div");
+            var newChat = document.createElement("div");
+            newDiv.classList = "d-flex justify-content-start"
+            newChat.classList = "d-inline-block rounded-3 bg-light text-dart border-bottom border-end"
+            newChat.textContent = data.message;
+            newDiv.append(newChat);
+            chatLog.append(newDiv);
+        };
+        chatLog.scrollTop = chatLog.scrollHeight;
+    };
+
+    socket.onclose = function() {
+        console.log('WebSocket 연결이 종료되었습니다.');
+    };
+
+    function send_msg(){
+        var msg = $('#chat-message-input').val();
+        const message = {
+            'type': {{ request.user.id }},
+            'message': msg
+        };
+        socket.send(JSON.stringify(message)); 
+        chatInput.value = "";
+    };
+
+    chatInput.addEventListener("keyup", function(event){
+        console.log("!!");
+        if (event.key === "Enter") {
+            console.log("!");
+            event.preventDefault();
+            chatEnter.click()
+        }
+    });
+    
+</script>
+
+
+
+{% endblock %}

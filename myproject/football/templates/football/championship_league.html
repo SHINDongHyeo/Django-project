@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .matchday_animation{
+        width:10px;
+        height: 100%;
+        background-color: black;
+        animation: expandWidth 1s ease 1s forwards; /* keyframes를 참조하는 애니메이션 설정 */
+    }
+    /* keyframes를 사용하여 width를 100px로 변경하는 애니메이션 정의 */
+    @keyframes expandWidth {
+            from {
+                width: 10px;
+            }
+            to {
+                width: {{ bar_matchday }};
+            }
+        }
+    #matches::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera*/
+    }
+    #matches {
+        max-width: 600px;
+    }
+    th {
+        text-align: center;
+    }
+</style>
+    
+    <h1 class="d-flex justify-content-center" style="line-height: 2;"><img src="{{ emblem }}" width="75" height="75" alt="">챔피언스 리그</h1>
+    <h2 class="d-flex justify-content-center">{{ season }}</h2>
+    <div class="mx-auto w-100">
+        <div class="d-flex justify-content-center">16강 대진표</div>
+        <div class="d-flex justify-content-center">
+            <div>
+            <img src="https://crests.football-data.org/1876.png" alt="" width="50">vs
+            <img src="https://crests.football-data.org/65.png" alt="" width="50">
+            </div>
+            <div>
+            <img src="https://crests.football-data.org/721.png" alt="" width="50">vs
+            <img src="https://crests.football-data.org/86.png" alt="" width="50">
+        </div>
+        <div>
+            <img src="https://crests.football-data.org/524.png" alt="" width="50">vs
+            <img src="https://crests.football-data.org/92.svg" alt="" width="50">
+        </div>
+        <div>
+            <img src="https://crests.football-data.org/110.svg" alt="" width="50">vs
+            <img src="https://crests.football-data.org/5.svg" alt="" width="50">
+        </div>
+        <div>
+            <img src="https://crests.football-data.org/108.png" alt="" width="50">vs
+            <img src="https://crests.football-data.org/78.svg" alt="" width="50">
+        </div>
+        <div>
+            <img src="https://crests.football-data.org/674.png" alt="" width="50">vs
+            <img src="https://crests.football-data.org/4.png" alt="" width="50">
+        </div>
+        <div>
+            <img src="https://crests.football-data.org/503.png" alt="" width="50">vs
+            <img src="https://crests.football-data.org/57.png" alt="" width="50">
+        </div>
+        <div>
+            <img src="https://crests.football-data.org/113.svg" alt="" width="50">vs
+            <img src="https://crests.football-data.org/81.svg" alt="" width="50">  
+            </div>   
+        </div>
+    </div>
+    <div class="wrapper d-flex">
+        <div style="width:65%;">
+            <div class="d-flex justify-content-center mt-3 mb-3">
+                <input type="button" class="img-button" value="위로" onclick="scrollUp()">
+            </div>
+            
+            <div id="matches" class="container mx-auto" style="height: 500px; overflow: scroll;">
+                
+                {% for match in all_matches %}
+                    <div class="d-flex justify-content-center" style="height: 100px; border:1px solid black; transition: 0.5s ease;">
+                        <div style="width:100px;" class="my-auto">
+                            <div style="text-align: center;">{{ match.kstDate }}</div>
+                            <div style="text-align: center;">{{ match.kstTime }}</div>
+                        </div>
+                        <div style="width:200px;" class="my-auto">
+                            <div style="text-align: center;">
+                                <img src="{{ match.homeTeam.crest }}" width="50px" height="50px" alt="">
+                            </div>
+                            <div style="text-align: center;">{{ match.homeTeam.name }}</div>
+                        </div>
+                        {% if match.score.fullTime.home is not none %}
+                            <div style="width:50px;" class="d-flex">
+                                <div style="font-size: 1.5rem;" class="my-auto mx-auto">{{ match.score.fullTime.home }}</div>
+                            </div>
+                            <div style="width:50px;" class="d-flex">
+                                <div style="font-size: 1.5rem;" class="my-auto mx-auto">{{ match.score.fullTime.away }}</div>
+                            </div>
+                        {% else %}
+                            <div style="width:100px;" class="d-flex">
+                                {% now "Y-m-d" as current_date %}
+                                    {% if match.kstDate == tomorrow %}
+                                        <div style="font-size: 1rem;" class="my-auto mx-auto">내일경기</div>
+                                    {% elif match.kstDate == current_date %}
+                                        <div style="font-size: 1rem;" class="my-auto mx-auto">오늘경기</div>
+                                    {% else %}
+                                        <div style="font-size: 1rem;" class="my-auto mx-auto">경기전</div>
+                                    {% endif %}
+                                
+                                
+                            </div>
+                        {% endif %}
+                        <div style="width:200px;" class="my-auto">
+                            <div style="text-align: center;">
+                                <img src="{{ match.awayTeam.crest }}" width="50px" height="50px" alt="">
+                            </div>
+                            <div style="text-align: center;">{{ match.awayTeam.name }}</div>
+                        </div>
+                        
+                        
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="d-flex justify-content-center mt-3 mb-3">
+                <input type="button" class="img-button" value="아래로" onclick="scrollDown()">
+            </div>
+            <div class="d-flex justify-content-center mt-3 mb-3">
+                <input type="button" class="img-button" value="최근 경기" onclick="scrollToLatest()">
+            </div>
+        </div>
+        <div style="width:35%; font-size: 0.8rem;" class="mt-5">
+            <div class="m-2">
+                {% for group in standings_data.standings %}
+                {{ group.group }}
+                <table border="1">
+                    <tr>
+                        <th>순위</th>
+                        <th colspan="2">클럽</th>
+                        <th>승점</th>
+                        <th>경기</th>
+                        <th>승</th>
+                        <th>무</th>
+                        <th>패</th>
+                        <th>득점</th>
+                        <th>실점</th>
+                        <th>득실</th>
+                    </tr>
+                        {% for standing in group.table %}
+                            <tr>
+                                <td style="text-align: center;">
+                                    {{ standing.position }}
+                                </td>
+                                <td>
+                                    <img src="{{ standing.team.crest }}" width="25px" height="25px" alt="">
+                                </td>
+                                <td>
+                                    {{ standing.team.shortName }}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{ standing.points }}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{ standing.playedGames }}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{ standing.won }}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{ standing.draw }}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{ standing.lost }}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{ standing.goalsFor }}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{ standing.goalsAgainst }}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{ standing.goalDifference }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                </table>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div id="data" style="border: 1px solid black;">
+        <div style="width: 35%; font-size: 0.8rem;">
+            <table border="1">
+                <tr>
+                    <th>순위</th>
+                    <th>이름</th>
+                    <th colspan="2">클럽</th>
+                    <th>골</th>
+                    <th>경기수</th>
+                </tr>
+                    {% for scorer in scorers_data.scorers %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ scorer.player.name }}</td>
+                            <td><img src="{{ scorer.team.crest }}" width="25px" height="25px" alt=""></td>
+                            <td>{{ scorer.team.shortName }}</td>
+                            <td>{{ scorer.goals }}</td>
+                            <td>{{ scorer.playedMatches }}</td>
+                        </tr>
+                    {% endfor %}
+                
+            </table>
+        </div>
+    </div>
+
+
+
+    <script>
+        // 페이지 로드 시에 호출할 함수
+        window.onload = function() {
+            scrollToLatest();
+        };
+
+        // div를 아래로 스크롤하는 함수
+        function scrollToLatest() {
+            var scrollableDiv = document.getElementById("matches");
+            // 스크롤을 가진 div의 높이
+            var divHeight = scrollableDiv.scrollHeight;
+            // 스크롤을 가진 div의 스크롤을 아래로 이동
+            var total_matches= {{ total_matches }};
+            var played_match= {{played_match}};
+            scrollableDiv.scrollTop = (divHeight/total_matches)*played_match-300;
+            var latest_match = scrollableDiv.childNodes[2*(played_match-1)+1];
+            latest_match.style.backgroundColor = 'red';
+            setTimeout(function() {
+                latest_match.style.backgroundColor = 'white';
+            }, 1000); // 1000밀리초(1초) 후에 실행
+        }
+
+        function scrollUp(){
+            var scrollableDiv = document.getElementById("matches");
+            scrollableDiv.scrollTo({ top: scrollableDiv.scrollTop-500, behavior: 'smooth' });
+        }
+        function scrollDown(){
+            var scrollableDiv = document.getElementById("matches");
+            scrollableDiv.scrollTo({ top: scrollableDiv.scrollTop+500, behavior: 'smooth' });
+        }
+        
+    </script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <script src = "{% static 'js/bootstrap.min.js' %}"></script>
+    <title>title</title>
+</head>
+<body>
+    <div>
+        <div>
+            해당 사이트는 구글 계정을 이용한 로그인 기능만을 제공합니다. 구글 계정으로 로그인 진행하시겠습니까?
+            <form method="post" action="">
+                {% csrf_token %}
+                <button type="submit">구글 계정으로 시작하기</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+

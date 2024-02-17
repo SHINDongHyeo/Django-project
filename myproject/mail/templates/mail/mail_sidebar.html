@@ -1,0 +1,85 @@
+<style>
+    
+    #mail_sidebar {
+        width: 280px;
+        height: 90vh;
+       
+        transition: left 0.3s ease;
+    }
+    #mail_sidebar_btn{
+        display: none;
+
+        text-align: right;
+    }
+
+    /* Mobile  */
+    @media (max-width: 575px) {
+        #mail_sidebar {
+            width: 200px;
+            height: 90vh;
+
+            position: fixed;
+            top:10vh;
+            left:-150px;
+            z-index: 100;
+        }
+        #mail_sidebar_btn{
+            display: block;
+        }
+        .sidebar_btn {
+            display: none;
+        }
+    }
+
+</style>
+
+
+<div id="mail_sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" >
+    <button id="mail_sidebar_btn" onclick="mobile_sidebar();">
+        >
+    </button>
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+    <span class="fs-4">쪽지함</span>
+    </a>
+    <button type="button" class="sidebar_btn btn btn-secondary" onclick="location.href='/mail/write/'">쪽지 작성</button>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+        <a href="/mail/receive/?page=1" id="receive_btn" class="sidebar_btn nav-link text-white" aria-current="page">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href=""></use></svg>
+        받은메일함
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/mail/sent/" id="sent_btn" class="sidebar_btn nav-link text-white">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href=""></use></svg>
+        보낸메일함
+        </a>
+    </li>
+    </ul>
+    <hr>
+</div>
+
+<script>
+    var mail_sidebar = document.getElementById("mail_sidebar");
+    var sidebar_btns = document.getElementsByClassName("sidebar_btn");
+    function mobile_sidebar() {
+        var left = window.getComputedStyle(mail_sidebar).left
+        // var left = mail_sidebar.style.left;
+        console.log(left);
+        if (left==='0px'){
+            mail_sidebar.style.left='-150px';
+        }else {
+            mail_sidebar.style.left='0px';
+        };
+
+        for (var sidebar_btn of sidebar_btns) {
+            if (sidebar_btn.style.display=="block"){
+                sidebar_btn.style.display = "none";
+            }else{
+                sidebar_btn.style.display = "block";
+            };
+        }
+    };
+</script>

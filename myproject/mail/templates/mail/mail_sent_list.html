@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex">
+    <!-- 사이드바 -->
+    {% include 'mail/mail_sidebar.html' %}
+
+    <!-- 본문 -->
+    <div style="width:800px;">
+        <div id="mail_toolbar" class="mt-3 ms-3 p-2"
+            style="
+                border-top:1px solid gray;
+                border-bottom:1px solid gray;">
+            <div class="d-flex">
+                <div style="width:50px; text-align: center;" class="me-2">
+                    <input type="checkbox">
+                    <button class="arrow-bottom dropdown" style="border:0; background-color: white; padding:0;">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">  
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/community/overseas">전체선택</a></li>
+                            <li><a class="dropdown-item" href="/community/domestic">읽은메일</a></li>
+                            <li><a class="dropdown-item" href="/community/domestic">안읽은메일</a></li>
+                        </ul>
+                    </button>
+                </div>
+                <div style="width:100px; text-align: center;" class="me-2">받은 사람</div>
+                <div style="width:500px; text-align: center;" class="me-2">제목</div>
+                <div style="width:100px; text-align: center;" class="me-2">날짜</div>
+            </div>
+        </div>
+        <div id="mail_content" class="d-flex ms-3 p-2">
+            <ul class="list-group">
+            {% for sent_mail in sent_mails %}
+                <li class="d-flex">
+                    <div style="width:50px; text-align: left;" class="me-2 ps-2">
+                        <input type="checkbox">
+                    </div>
+                    <div style="width:100px; text-align: left;" class="me-2 ps-1">{{ sent_mail.receiver }}</div>
+                    <div style="width:500px; text-align: left;" class="me-2 ps-1"><a href="/mail/sent/detail/{{ sent_mail.id }}">{{ sent_mail.subject }}</a></div>
+                    <div style="width:100px; text-align: left;" class="me-2 ps-1">{{ sent_mail.timestamp|date:"Y-m-d" }}</div>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    var receive_btn = document.getElementById("receive_btn");
+    receive_btn.classList.remove("active");
+    var sent_btn = document.getElementById("sent_btn");
+    sent_btn.classList.add("active");
+</script>
+
+
+
+<!-- <form action="/mail/send/" method="POST">
+    {% csrf_token %}
+    받는사람<input type="text" value="receiver" id="receiver" name="receiver">
+    제목<input type="text" value="subject" id="subject" name="subject">
+    내용<input type="text" value="content" id="content" name="content">
+    <input type="submit" value="전송">
+</form>
+받은 메일
+<div>
+
+</div>
+보낸 메일
+{{ sent_mails }} -->
+
+
+<script>
+    var error_msg = "{{ error_msg }}";
+    if (error_msg){
+        alert(error_msg);
+    };
+</script>
+{% endblock %}

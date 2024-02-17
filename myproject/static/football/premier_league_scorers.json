@@ -1,0 +1,333 @@
+{
+    "count": 10,
+    "filters": {
+        "season": "2023",
+        "limit": 10
+    },
+    "competition": {
+        "id": 2021,
+        "name": "Premier League",
+        "code": "PL",
+        "type": "LEAGUE",
+        "emblem": "https://crests.football-data.org/PL.png"
+    },
+    "season": {
+        "id": 1564,
+        "startDate": "2023-08-11",
+        "endDate": "2024-05-19",
+        "currentMatchday": 24,
+        "winner": null
+    },
+    "scorers": [
+        {
+            "player": {
+                "id": 38101,
+                "name": "Erling Haaland",
+                "firstName": "Erling",
+                "lastName": "Haaland",
+                "dateOfBirth": "2000-07-21",
+                "nationality": "Norway",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:18Z"
+            },
+            "team": {
+                "id": 65,
+                "name": "Manchester City FC",
+                "shortName": "Man City",
+                "tla": "MCI",
+                "crest": "https://crests.football-data.org/65.png",
+                "address": "SportCity Manchester M11 3FF",
+                "website": "https://www.mancity.com",
+                "founded": 1880,
+                "clubColors": "Sky Blue / White",
+                "venue": "Etihad Stadium",
+                "lastUpdated": "2022-02-10T19:48:37Z"
+            },
+            "playedMatches": 17,
+            "goals": 14,
+            "assists": 5,
+            "penalties": 3
+        },
+        {
+            "player": {
+                "id": 7878,
+                "name": "Dominic Solanke",
+                "firstName": "Dominic",
+                "lastName": "Solanke",
+                "dateOfBirth": "1997-09-14",
+                "nationality": "England",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:24Z"
+            },
+            "team": {
+                "id": 1044,
+                "name": "AFC Bournemouth",
+                "shortName": "Bournemouth",
+                "tla": "BOU",
+                "crest": "https://crests.football-data.org/1044.png",
+                "address": "Dean Court, Kings Park Bournemouth BH7 7AF",
+                "website": "http://www.afcb.co.uk",
+                "founded": 1890,
+                "clubColors": "Red / Black",
+                "venue": "Vitality Stadium",
+                "lastUpdated": "2022-02-22T14:05:46Z"
+            },
+            "playedMatches": 23,
+            "goals": 14,
+            "assists": 1,
+            "penalties": 1
+        },
+        {
+            "player": {
+                "id": 3754,
+                "name": "Mohamed Salah",
+                "firstName": "Mo",
+                "lastName": "Salah",
+                "dateOfBirth": "1992-06-15",
+                "nationality": "Egypt",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:17Z"
+            },
+            "team": {
+                "id": 64,
+                "name": "Liverpool FC",
+                "shortName": "Liverpool",
+                "tla": "LIV",
+                "crest": "https://crests.football-data.org/64.png",
+                "address": "Anfield Road Liverpool L4 0TH",
+                "website": "http://www.liverpoolfc.tv",
+                "founded": 1892,
+                "clubColors": "Red / White",
+                "venue": "Anfield",
+                "lastUpdated": "2022-02-10T19:30:22Z"
+            },
+            "playedMatches": 20,
+            "goals": 14,
+            "assists": 8,
+            "penalties": 4
+        },
+        {
+            "player": {
+                "id": 170281,
+                "name": "Heung-min Son",
+                "firstName": "Heung-min",
+                "lastName": "Son",
+                "dateOfBirth": "1992-07-08",
+                "nationality": "South Korea",
+                "section": "Midfield",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:19Z"
+            },
+            "team": {
+                "id": 73,
+                "name": "Tottenham Hotspur FC",
+                "shortName": "Tottenham",
+                "tla": "TOT",
+                "crest": "https://crests.football-data.org/73.svg",
+                "address": "Bill Nicholson Way, 748 High Road London N17 0AP",
+                "website": "http://www.tottenhamhotspur.com",
+                "founded": 1882,
+                "clubColors": "Navy Blue / White",
+                "venue": "Tottenham Hotspur Stadium",
+                "lastUpdated": "2020-11-20T07:12:32Z"
+            },
+            "playedMatches": 20,
+            "goals": 12,
+            "assists": 5,
+            "penalties": 1
+        },
+        {
+            "player": {
+                "id": 11414,
+                "name": "Jarrod Bowen",
+                "firstName": "Jarrod",
+                "lastName": "Bowen",
+                "dateOfBirth": "1996-01-01",
+                "nationality": "England",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:23Z"
+            },
+            "team": {
+                "id": 563,
+                "name": "West Ham United FC",
+                "shortName": "West Ham",
+                "tla": "WHU",
+                "crest": "https://crests.football-data.org/563.png",
+                "address": "Queen Elizabeth Olympic Park, London London E20 2ST",
+                "website": "http://www.whufc.com",
+                "founded": 1895,
+                "clubColors": "Claret / Sky Blue",
+                "venue": "London Stadium",
+                "lastUpdated": "2022-02-19T08:09:25Z"
+            },
+            "playedMatches": 22,
+            "goals": 11,
+            "assists": 2,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 4444,
+                "name": "Ollie Watkins",
+                "firstName": "Ollie",
+                "lastName": "Watkins",
+                "dateOfBirth": "1995-12-30",
+                "nationality": "England",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:15Z"
+            },
+            "team": {
+                "id": 58,
+                "name": "Aston Villa FC",
+                "shortName": "Aston Villa",
+                "tla": "AVL",
+                "crest": "https://crests.football-data.org/58.png",
+                "address": "Villa Park Birmingham B6 6HE",
+                "website": "http://www.avfc.co.uk",
+                "founded": 1872,
+                "clubColors": "Claret / Sky Blue",
+                "venue": "Villa Park",
+                "lastUpdated": "2022-04-03T16:22:14Z"
+            },
+            "playedMatches": 23,
+            "goals": 11,
+            "assists": 10,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 6486,
+                "name": "Alexander Isak",
+                "firstName": "Alexander",
+                "lastName": "Isak",
+                "dateOfBirth": "1999-09-21",
+                "nationality": "Sweden",
+                "section": "Midfield",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:18Z"
+            },
+            "team": {
+                "id": 67,
+                "name": "Newcastle United FC",
+                "shortName": "Newcastle",
+                "tla": "NEW",
+                "crest": "https://crests.football-data.org/67.png",
+                "address": "Sports Direct Arena Newcastle upon Tyne NE1 4ST",
+                "website": "http://www.nufc.co.uk",
+                "founded": 1881,
+                "clubColors": "Black / White",
+                "venue": "St. James' Park",
+                "lastUpdated": "2022-09-28T18:51:07Z"
+            },
+            "playedMatches": 18,
+            "goals": 10,
+            "assists": null,
+            "penalties": 2
+        },
+        {
+            "player": {
+                "id": 3354,
+                "name": "Hwang Heechan",
+                "firstName": "Hee-chan",
+                "lastName": "Hwang",
+                "dateOfBirth": "1996-01-26",
+                "nationality": "South Korea",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T23:04:51Z"
+            },
+            "team": {
+                "id": 76,
+                "name": "Wolverhampton Wanderers FC",
+                "shortName": "Wolverhampton",
+                "tla": "WOL",
+                "crest": "https://crests.football-data.org/76.svg",
+                "address": "Waterloo Road Wolverhampton WV1 4QR",
+                "website": "http://www.wolves.co.uk",
+                "founded": 1877,
+                "clubColors": "Black / Gold",
+                "venue": "Molineux Stadium",
+                "lastUpdated": "2021-04-09T02:25:24Z"
+            },
+            "playedMatches": 20,
+            "goals": 10,
+            "assists": 3,
+            "penalties": 1
+        },
+        {
+            "player": {
+                "id": 8133,
+                "name": "Richarlison",
+                "firstName": "",
+                "lastName": "Richarlison",
+                "dateOfBirth": "1997-05-10",
+                "nationality": "Brazil",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:19Z"
+            },
+            "team": {
+                "id": 73,
+                "name": "Tottenham Hotspur FC",
+                "shortName": "Tottenham",
+                "tla": "TOT",
+                "crest": "https://crests.football-data.org/73.svg",
+                "address": "Bill Nicholson Way, 748 High Road London N17 0AP",
+                "website": "http://www.tottenhamhotspur.com",
+                "founded": 1882,
+                "clubColors": "Navy Blue / White",
+                "venue": "Tottenham Hotspur Stadium",
+                "lastUpdated": "2020-11-20T07:12:32Z"
+            },
+            "playedMatches": 21,
+            "goals": 10,
+            "assists": 3,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 58085,
+                "name": "Elijah Adebayo",
+                "firstName": "Elijah",
+                "lastName": "Adebayo",
+                "dateOfBirth": "1998-01-07",
+                "nationality": "England",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:22Z"
+            },
+            "team": {
+                "id": 389,
+                "name": "Luton Town FC",
+                "shortName": "Luton Town",
+                "tla": "LUT",
+                "crest": "https://crests.football-data.org/389.png",
+                "address": "1 Maple Road Luton LU4 8AW",
+                "website": "http://www.lutontown.co.uk",
+                "founded": 1885,
+                "clubColors": "White / Navy Blue / Orange",
+                "venue": "Kenilworth Road Stadium",
+                "lastUpdated": "2022-02-19T08:50:08Z"
+            },
+            "playedMatches": 23,
+            "goals": 10,
+            "assists": null,
+            "penalties": null
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="m-5 p-2" style="border: 1px solid black;">
+        <h1>토론방 생성</h1>
+        <form action="/chat/start/check" method="post">
+            {% csrf_token %}
+            방제목<input type="text" id="title" name="title" style="width:100%;"><br>
+            참여인원<br><select id="limit" name="limit">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select><br>
+            <div class="d-flex justify-content-end m-3">
+                <input type="submit" value="만들기">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-3">
+    <div class="d-flex justify-content-end m-3">
+        <button onclick="location.href='/chat/start'"> 방 만들기</button>
+    </div>
+
+
+    <table class="table">
+        <thead>
+            <tr class="table-dark">
+                <th>입장인원</th>
+                <th>제목</th>
+                <th>방장</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if chatrooms %}
+                {% for chatroom in chatrooms %}
+                    <tr>
+                        <td>
+                            {{ chatroom.current }} / {{ chatroom.limit }}
+                        </td>
+                        <td>
+                            <a href="/chat/{{ chatroom.id }}">
+                                {{ chatroom.title }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ chatroom.owner }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr style="text-align: center;">
+                    <td colspan="3">게시물이 없습니다.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+
+    </table>
+
+</div>
+{% endblock %}

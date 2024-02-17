@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https://cdn.tiny.cloud/1/ikjsg21ttf2czf2karye0pt3q5qrlf0tqyau4y9zz6yy3o8n/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',  // 에디터가 적용될 텍스트 영역을 선택합니다.
+        plugins: 'advlist autolink lists link image charmap print preview anchor',
+        toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link image',
+        width: '100%',
+        height: 500,
+    });
+</script>
+
+<div class="m-3">
+    <form method="post" action="/community/check">
+        {% csrf_token %}
+        <textarea name="content" id="content"></textarea>
+        <button type="submit">작성완료</button>
+    </form>
+</div>
+
+{% endblock %}

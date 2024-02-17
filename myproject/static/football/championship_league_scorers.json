@@ -1,0 +1,333 @@
+{
+    "count": 10,
+    "filters": {
+        "season": "2023",
+        "limit": 10
+    },
+    "competition": {
+        "id": 2001,
+        "name": "UEFA Champions League",
+        "code": "CL",
+        "type": "CUP",
+        "emblem": "https://crests.football-data.org/CL.png"
+    },
+    "season": {
+        "id": 1630,
+        "startDate": "2023-09-19",
+        "endDate": "2024-06-01",
+        "currentMatchday": 6,
+        "winner": null
+    },
+    "scorers": [
+        {
+            "player": {
+                "id": 152770,
+                "name": "Rasmus Højlund",
+                "firstName": "Rasmus",
+                "lastName": "Højlund",
+                "dateOfBirth": "2003-02-04",
+                "nationality": "Denmark",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T22:13:12Z"
+            },
+            "team": {
+                "id": 66,
+                "name": "Manchester United FC",
+                "shortName": "Man United",
+                "tla": "MUN",
+                "crest": "https://crests.football-data.org/66.png",
+                "address": "Sir Matt Busby Way Manchester M16 0RA",
+                "website": "http://www.manutd.com",
+                "founded": 1878,
+                "clubColors": "Red / White",
+                "venue": "Old Trafford",
+                "lastUpdated": "2022-02-10T19:27:46Z"
+            },
+            "playedMatches": 6,
+            "goals": 5,
+            "assists": null,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 7819,
+                "name": "Álvaro Morata",
+                "firstName": "",
+                "lastName": "Álvaro Morata",
+                "dateOfBirth": "1992-10-23",
+                "nationality": "Spain",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:05:43Z"
+            },
+            "team": {
+                "id": 78,
+                "name": "Club Atlético de Madrid",
+                "shortName": "Atleti",
+                "tla": "ATL",
+                "crest": "https://crests.football-data.org/78.svg",
+                "address": "Paseo Virgen del Puerto, 67 Madrid 28005",
+                "website": "http://www.clubatleticodemadrid.com",
+                "founded": 1903,
+                "clubColors": "Red / White / Blue",
+                "venue": "Estadio Wanda Metropolitano",
+                "lastUpdated": "2022-02-19T08:20:10Z"
+            },
+            "playedMatches": 6,
+            "goals": 5,
+            "assists": 1,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 114,
+                "name": "Antoine Griezmann",
+                "firstName": "Antoine",
+                "lastName": "Griezmann",
+                "dateOfBirth": "1991-03-21",
+                "nationality": "France",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:05:43Z"
+            },
+            "team": {
+                "id": 78,
+                "name": "Club Atlético de Madrid",
+                "shortName": "Atleti",
+                "tla": "ATL",
+                "crest": "https://crests.football-data.org/78.svg",
+                "address": "Paseo Virgen del Puerto, 67 Madrid 28005",
+                "website": "http://www.clubatleticodemadrid.com",
+                "founded": 1903,
+                "clubColors": "Red / White / Blue",
+                "venue": "Estadio Wanda Metropolitano",
+                "lastUpdated": "2022-02-19T08:20:10Z"
+            },
+            "playedMatches": 6,
+            "goals": 5,
+            "assists": null,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 38101,
+                "name": "Erling Haaland",
+                "firstName": "Erling",
+                "lastName": "Haaland",
+                "dateOfBirth": "2000-07-21",
+                "nationality": "Norway",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:18Z"
+            },
+            "team": {
+                "id": 65,
+                "name": "Manchester City FC",
+                "shortName": "Man City",
+                "tla": "MCI",
+                "crest": "https://crests.football-data.org/65.png",
+                "address": "SportCity Manchester M11 3FF",
+                "website": "https://www.mancity.com",
+                "founded": 1880,
+                "clubColors": "Sky Blue / White",
+                "venue": "Etihad Stadium",
+                "lastUpdated": "2022-02-10T19:48:37Z"
+            },
+            "playedMatches": 5,
+            "goals": 5,
+            "assists": 2,
+            "penalties": 2
+        },
+        {
+            "player": {
+                "id": 98571,
+                "name": "Julián Álvarez",
+                "firstName": "Julián",
+                "lastName": "Álvarez",
+                "dateOfBirth": "2000-01-31",
+                "nationality": "Argentina",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:18Z"
+            },
+            "team": {
+                "id": 65,
+                "name": "Manchester City FC",
+                "shortName": "Man City",
+                "tla": "MCI",
+                "crest": "https://crests.football-data.org/65.png",
+                "address": "SportCity Manchester M11 3FF",
+                "website": "https://www.mancity.com",
+                "founded": 1880,
+                "clubColors": "Sky Blue / White",
+                "venue": "Etihad Stadium",
+                "lastUpdated": "2022-02-10T19:48:37Z"
+            },
+            "playedMatches": 6,
+            "goals": 4,
+            "assists": null,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 37363,
+                "name": "Galeno",
+                "firstName": "",
+                "lastName": "Galeno",
+                "dateOfBirth": "1997-10-22",
+                "nationality": "Brazil",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T19:37:03Z"
+            },
+            "team": {
+                "id": 503,
+                "name": "FC Porto",
+                "shortName": "Porto",
+                "tla": "FCP",
+                "crest": "https://crests.football-data.org/503.png",
+                "address": "Estádio do Dragão, Entrada Poente - Piso 3 Porto 4350-451",
+                "website": "http://www.fcporto.pt",
+                "founded": 1893,
+                "clubColors": "Blue / White",
+                "venue": "Estádio Do Dragão",
+                "lastUpdated": "2022-02-10T19:26:43Z"
+            },
+            "playedMatches": 5,
+            "goals": 4,
+            "assists": 2,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 125010,
+                "name": "Jude Bellingham",
+                "firstName": "Jude",
+                "lastName": "Bellingham",
+                "dateOfBirth": "2003-06-29",
+                "nationality": "England",
+                "section": "Midfield",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:05:45Z"
+            },
+            "team": {
+                "id": 86,
+                "name": "Real Madrid CF",
+                "shortName": "Real Madrid",
+                "tla": "RMA",
+                "crest": "https://crests.football-data.org/86.png",
+                "address": "Avenida Concha Espina, 1 Madrid 28036",
+                "website": "http://www.realmadrid.com",
+                "founded": 1902,
+                "clubColors": "White / Purple",
+                "venue": "Estadio Santiago Bernabéu",
+                "lastUpdated": "2022-02-19T08:59:31Z"
+            },
+            "playedMatches": 6,
+            "goals": 4,
+            "assists": 3,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 8004,
+                "name": "Harry Kane",
+                "firstName": "Harry",
+                "lastName": "Kane",
+                "dateOfBirth": "1993-07-28",
+                "nationality": "England",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:19Z"
+            },
+            "team": {
+                "id": 5,
+                "name": "FC Bayern München",
+                "shortName": "Bayern",
+                "tla": "FCB",
+                "crest": "https://crests.football-data.org/5.svg",
+                "address": "Säbenerstr. 51 München 81547",
+                "website": "http://www.fcbayern.de",
+                "founded": 1900,
+                "clubColors": "Red / White / Blue",
+                "venue": "Allianz Arena",
+                "lastUpdated": "2021-12-16T18:52:55Z"
+            },
+            "playedMatches": 6,
+            "goals": 4,
+            "assists": 3,
+            "penalties": 1
+        },
+        {
+            "player": {
+                "id": 3236,
+                "name": "Gabriel Jesus",
+                "firstName": "",
+                "lastName": "Gabriel Jesus",
+                "dateOfBirth": "1997-04-03",
+                "nationality": "Brazil",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:15Z"
+            },
+            "team": {
+                "id": 57,
+                "name": "Arsenal FC",
+                "shortName": "Arsenal",
+                "tla": "ARS",
+                "crest": "https://crests.football-data.org/57.png",
+                "address": "75 Drayton Park London N5 1BU",
+                "website": "http://www.arsenal.com",
+                "founded": 1886,
+                "clubColors": "Red / White",
+                "venue": "Emirates Stadium",
+                "lastUpdated": "2022-02-10T19:48:56Z"
+            },
+            "playedMatches": 5,
+            "goals": 4,
+            "assists": 2,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 80351,
+                "name": "Danylo Sikan",
+                "firstName": "Danylo",
+                "lastName": "Sikan",
+                "dateOfBirth": "2001-04-16",
+                "nationality": "Ukraine",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-05-01T20:17:46Z"
+            },
+            "team": {
+                "id": 1887,
+                "name": "FK Shakhtar Donetsk",
+                "shortName": "Shaktar",
+                "tla": "SHD",
+                "crest": "https://crests.football-data.org/1887.png",
+                "address": "vul. Artema, 86-a Donets’k 83050",
+                "website": "https://shakhtar.com/",
+                "founded": 1936,
+                "clubColors": "Orange / Black",
+                "venue": "Oblasny SportKomplex Metalist",
+                "lastUpdated": "2022-08-17T20:41:41Z"
+            },
+            "playedMatches": 6,
+            "goals": 4,
+            "assists": null,
+            "penalties": null
+        }
+    ]
+}

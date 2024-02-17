@@ -1,0 +1,333 @@
+{
+    "count": 10,
+    "filters": {
+        "season": "2023",
+        "limit": 10
+    },
+    "competition": {
+        "id": 2002,
+        "name": "Bundesliga",
+        "code": "BL1",
+        "type": "LEAGUE",
+        "emblem": "https://crests.football-data.org/BL1.png"
+    },
+    "season": {
+        "id": 1592,
+        "startDate": "2023-08-18",
+        "endDate": "2024-05-18",
+        "currentMatchday": 21,
+        "winner": null
+    },
+    "scorers": [
+        {
+            "player": {
+                "id": 8004,
+                "name": "Harry Kane",
+                "firstName": "Harry",
+                "lastName": "Kane",
+                "dateOfBirth": "1993-07-28",
+                "nationality": "England",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T17:01:19Z"
+            },
+            "team": {
+                "id": 5,
+                "name": "FC Bayern München",
+                "shortName": "Bayern",
+                "tla": "FCB",
+                "crest": "https://crests.football-data.org/5.svg",
+                "address": "Säbenerstr. 51 München 81547",
+                "website": "http://www.fcbayern.de",
+                "founded": 1900,
+                "clubColors": "Red / White / Blue",
+                "venue": "Allianz Arena",
+                "lastUpdated": "2021-12-16T18:52:55Z"
+            },
+            "playedMatches": 20,
+            "goals": 24,
+            "assists": 5,
+            "penalties": 3
+        },
+        {
+            "player": {
+                "id": 211,
+                "name": "Sehrou Guirassy",
+                "firstName": "Serhou",
+                "lastName": "Guirassy",
+                "dateOfBirth": "1996-03-12",
+                "nationality": "Guinea",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": 9,
+                "lastUpdated": "2023-07-30T16:25:22Z"
+            },
+            "team": {
+                "id": 10,
+                "name": "VfB Stuttgart",
+                "shortName": "Stuttgart",
+                "tla": "VFB",
+                "crest": "https://crests.football-data.org/10.png",
+                "address": "Mercedesstraße 109 Stuttgart 70372",
+                "website": "http://www.vfb.de",
+                "founded": 1893,
+                "clubColors": "White / Red",
+                "venue": "Mercedes-Benz Arena",
+                "lastUpdated": "2023-02-28T07:59:06Z"
+            },
+            "playedMatches": 14,
+            "goals": 17,
+            "assists": 3,
+            "penalties": 3
+        },
+        {
+            "player": {
+                "id": 73215,
+                "name": "Loïs Openda",
+                "firstName": "Loïs",
+                "lastName": "Openda",
+                "dateOfBirth": "2000-02-16",
+                "nationality": "Belgium",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T16:25:28Z"
+            },
+            "team": {
+                "id": 721,
+                "name": "RB Leipzig",
+                "shortName": "RB Leipzig",
+                "tla": "RBL",
+                "crest": "https://crests.football-data.org/721.png",
+                "address": "Neumarkt 29-33 Leipzig 04109",
+                "website": "http://www.dierotenbullen.com",
+                "founded": 2009,
+                "clubColors": "White / Red",
+                "venue": "Red Bull Arena",
+                "lastUpdated": "2022-02-19T09:03:00Z"
+            },
+            "playedMatches": 20,
+            "goals": 14,
+            "assists": 5,
+            "penalties": 2
+        },
+        {
+            "player": {
+                "id": 6928,
+                "name": "Deniz Undav",
+                "firstName": "Deniz",
+                "lastName": "Undav",
+                "dateOfBirth": "1996-07-19",
+                "nationality": "Germany",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": 9,
+                "lastUpdated": "2023-07-30T17:01:22Z"
+            },
+            "team": {
+                "id": 10,
+                "name": "VfB Stuttgart",
+                "shortName": "Stuttgart",
+                "tla": "VFB",
+                "crest": "https://crests.football-data.org/10.png",
+                "address": "Mercedesstraße 109 Stuttgart 70372",
+                "website": "http://www.vfb.de",
+                "founded": 1893,
+                "clubColors": "White / Red",
+                "venue": "Mercedes-Benz Arena",
+                "lastUpdated": "2023-02-28T07:59:06Z"
+            },
+            "playedMatches": 17,
+            "goals": 13,
+            "assists": 5,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 33242,
+                "name": "Ermedin Demirovic",
+                "firstName": "Ermedin",
+                "lastName": "Demirović",
+                "dateOfBirth": "1998-03-25",
+                "nationality": "Bosnia-Herzegovina",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T16:25:24Z"
+            },
+            "team": {
+                "id": 16,
+                "name": "FC Augsburg",
+                "shortName": "Augsburg",
+                "tla": "FCA",
+                "crest": "https://crests.football-data.org/16.png",
+                "address": "Donauwörther Straße 170 Augsburg 86154",
+                "website": "http://www.fcaugsburg.de",
+                "founded": 1907,
+                "clubColors": "Red / Green / White",
+                "venue": "WWK Arena",
+                "lastUpdated": "2023-02-28T07:59:40Z"
+            },
+            "playedMatches": 20,
+            "goals": 11,
+            "assists": 7,
+            "penalties": 3
+        },
+        {
+            "player": {
+                "id": 130811,
+                "name": "Victor Boniface",
+                "firstName": "Victor",
+                "lastName": "Boniface",
+                "dateOfBirth": "2000-12-23",
+                "nationality": "Nigeria",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": 8,
+                "lastUpdated": "2023-07-30T16:25:21Z"
+            },
+            "team": {
+                "id": 3,
+                "name": "Bayer 04 Leverkusen",
+                "shortName": "Leverkusen",
+                "tla": "B04",
+                "crest": "https://crests.football-data.org/3.png",
+                "address": "Bismarckstr. 122-124 Leverkusen 51373",
+                "website": "http://www.bayer04.de",
+                "founded": 1904,
+                "clubColors": "Red / White / Black",
+                "venue": "BayArena",
+                "lastUpdated": "2022-02-25T16:43:07Z"
+            },
+            "playedMatches": 16,
+            "goals": 10,
+            "assists": 8,
+            "penalties": 1
+        },
+        {
+            "player": {
+                "id": 16335,
+                "name": "Jonas Wind",
+                "firstName": "Jonas",
+                "lastName": "Wind",
+                "dateOfBirth": "1999-02-07",
+                "nationality": "Denmark",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T16:25:23Z"
+            },
+            "team": {
+                "id": 11,
+                "name": "VfL Wolfsburg",
+                "shortName": "Wolfsburg",
+                "tla": "WOB",
+                "crest": "https://crests.football-data.org/11.svg",
+                "address": "In den Allerwiesen 1 Wolfsburg 38446",
+                "website": "http://www.vfl-wolfsburg.de",
+                "founded": 1945,
+                "clubColors": "Green / White",
+                "venue": "Volkswagen Arena",
+                "lastUpdated": "2021-04-10T15:53:44Z"
+            },
+            "playedMatches": 20,
+            "goals": 9,
+            "assists": 5,
+            "penalties": null
+        },
+        {
+            "player": {
+                "id": 226,
+                "name": "Marvin Ducksch",
+                "firstName": "Marvin",
+                "lastName": "Ducksch",
+                "dateOfBirth": "1994-03-07",
+                "nationality": "Germany",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T16:25:23Z"
+            },
+            "team": {
+                "id": 12,
+                "name": "SV Werder Bremen",
+                "shortName": "Bremen",
+                "tla": "SVW",
+                "crest": "https://crests.football-data.org/12.svg",
+                "address": "Franz-Böhmert-Str. 1c Bremen 28205",
+                "website": "http://www.werder.de",
+                "founded": 1899,
+                "clubColors": "Green / White",
+                "venue": "Weserstadion",
+                "lastUpdated": "2021-04-07T17:14:56Z"
+            },
+            "playedMatches": 19,
+            "goals": 9,
+            "assists": 4,
+            "penalties": 3
+        },
+        {
+            "player": {
+                "id": 304,
+                "name": "Niclas Füllkrug",
+                "firstName": "Niclas",
+                "lastName": "Füllkrug",
+                "dateOfBirth": "1993-02-09",
+                "nationality": "Germany",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T16:25:23Z"
+            },
+            "team": {
+                "id": 4,
+                "name": "Borussia Dortmund",
+                "shortName": "Dortmund",
+                "tla": "BVB",
+                "crest": "https://crests.football-data.org/4.png",
+                "address": "Rheinlanddamm 207-209 Dortmund 44137",
+                "website": "http://www.bvb.de",
+                "founded": 1909,
+                "clubColors": "Black / Yellow",
+                "venue": "Signal Iduna Park",
+                "lastUpdated": "2022-02-25T16:50:16Z"
+            },
+            "playedMatches": 20,
+            "goals": 9,
+            "assists": 5,
+            "penalties": 3
+        },
+        {
+            "player": {
+                "id": 3184,
+                "name": "Leroy Sané",
+                "firstName": "Leroy",
+                "lastName": "Sané",
+                "dateOfBirth": "1996-01-11",
+                "nationality": "Germany",
+                "section": "Offence",
+                "position": null,
+                "shirtNumber": null,
+                "lastUpdated": "2023-07-30T16:25:22Z"
+            },
+            "team": {
+                "id": 5,
+                "name": "FC Bayern München",
+                "shortName": "Bayern",
+                "tla": "FCB",
+                "crest": "https://crests.football-data.org/5.svg",
+                "address": "Säbenerstr. 51 München 81547",
+                "website": "http://www.fcbayern.de",
+                "founded": 1900,
+                "clubColors": "Red / White / Blue",
+                "venue": "Allianz Arena",
+                "lastUpdated": "2021-12-16T18:52:55Z"
+            },
+            "playedMatches": 20,
+            "goals": 8,
+            "assists": 11,
+            "penalties": null
+        }
+    ]
+}

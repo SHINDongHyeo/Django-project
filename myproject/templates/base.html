@@ -1,0 +1,123 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>title</title>
+</head>
+
+<body>
+    <style>
+        body, html {
+            height: 100vh;
+        }
+        header {
+            height: 10vh;
+        }
+    </style>
+    <header class="bg-dark text-white">
+        <div class="header_container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+                    <div class="container-fluid ms-5 me-5">
+                        <a class="navbar-brand" href="/">AGZG</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <!-- 모바일 상 숨길 부분 시작 -->
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        커뮤니티
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="/community/overseas">해외축구</a></li>
+                                        <li><a class="dropdown-item" href="/community/domestic">국내축구</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        해외축구
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="/football/PL">프리미어리그</a></li>
+                                        <li><a class="dropdown-item" href="/football/PD">라리가</a></li>
+                                        <li><a class="dropdown-item" href="/football/BL1">분데스리가</a></li>
+                                        <li><a class="dropdown-item" href="/football/FL1">프랑스리그</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="/football/championship_league/1">챔피언스리그</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        국내축구
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="/football/k/1">K리그 1부</a></li>
+                                        <li><a class="dropdown-item" href="/football/k/2">K리그 2부</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/point" role="button">
+                                        포인트
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/chat" role="button">
+                                        토론방
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="text-end ms-auto">
+                                {% if request.user.is_authenticated %}
+                                    <p>
+                                        {{ request.user }} lv.{{ request.user.level }}
+                                    </p>
+                                    <p style="color:white; font-size: 0.75rem; margin:0;">
+                                        포인트{{ request.user.point }} 
+                                        <a href="/mail/receive/?page=1">쪽지</a>
+                                    </p>
+                                    
+                                    <button style="font-size: 0.75rem;" type="submit" onclick="location.href='/nickname'">닉네임 변경</button>
+                                    <form method="post" action="/accounts/logout/"
+                                        style="display: inline-block; font-size: 0.75rem;">
+                                        {% csrf_token %}
+                                        <button type="submit">로그아웃</button>
+                                    </form>
+                                {% else %}
+                                    <button type="button" class="btn btn-warning"
+                                        onclick="location.href='accounts/google/login/'">로그인</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- 모바일 상 숨길 부분 끝 -->
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+    </header>
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>

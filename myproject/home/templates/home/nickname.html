@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="wrapper">
+        <div class="container">
+            <h2>닉네임 변경</h2>
+            <form id="update-username-form">
+                {% csrf_token %}
+                <input id="new-username-input" type="text" placeholder="원하는 닉네임을 입력해주세요" nmae="nickname_want" required>
+                <input type="submit" value="수정하기"></button>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#update-username-form').submit(function(event) {
+                event.preventDefault();
+                var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+                var newUsername = $('#new-username-input').val();
+                console.log(newUsername);
+                $.ajax({
+                    type: 'POST',
+                    url: '/nickname/check',
+                    headers: {'X-CSRFToken': csrftoken}, 
+                    data: {
+                        'nickname_want': newUsername
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        alert(response.message);
+                        location.reload();
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
