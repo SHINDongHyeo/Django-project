@@ -1,13 +1,19 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from community.models import Post
+from chat.models import ChatRoom
 
 # Create your views here.
 def home(request):
-    print("home실행")
-    print(request.user.is_authenticated)
-    print(request.user.username)
-    return render(request, 'home/home.html')
+    hot_posts = Post.objects.all()[:5]
+    hot_chats = ChatRoom.objects.all()[:5]
+    print(hot_chats)
+    context = {
+        'hot_posts':hot_posts,
+        'hot_chats':hot_chats,
+    }
+    return render(request, 'home/home.html', context=context)
 
 ##### 닉네임 변경
 # 접속 화면

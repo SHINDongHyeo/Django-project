@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="m-3">
+    <div class="d-flex justify-content-between border-bottom border-top m-2">
+        <p class="subject fs-4 mt-3">
+            {{ post.subject }}
+        </p>
+        <p class="timestamp fs-6 mt-3">
+            {{ post.timestamp }}
+        </p>
+    </div>
+    
+    <div class="content border m-2">
+        {{ post.content|safe }}
+    </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -64,27 +64,65 @@
 
 
         <div class="hot_community border p-2">
-            <div>인기 게시물</div>
-            <ul>
-                <li>1.</li>
-                <li>2.</li>
-            </ul>
+            <div class="fs-5 fw-bold">인기 게시물</div>
+            <ol class="p-2">
+                {% for hot_post in hot_posts %}
+                    <li class="p-1"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="{% url 'community:post' hot_post.id %}">{{ hot_post.subject }}</a></li>
+                {% endfor %}
+            </ol>
         </div>
     </div>
 
     <div class="content2 m-3 p-2 border">
+        {% load static %}
         <div class="abroad p-2 border">
-            <div>해외 축구</div>
+            <div class="fs-5 fw-bold">해외 축구</div>
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active overflow-hidden">
+                    <img src="{% static 'image/1.png' %}" width="100%"height="200px"alt="">
+                  </div>
+                  <div class="carousel-item overflow-hidden">
+                    <img src="{% static 'image/2.png' %}" width="100%"height="200px" alt="">
+                  </div>
+                  <div class="carousel-item overflow-hidden">
+                    <img src="{% static 'image/3.png' %}" width="100%"height="200px" alt="">
+                  </div>
+                  
+                </div>
+              </div>
         </div>
         <div class="domestic p-2 border">
-            <div>국내 축구</div>
+            <div class="fs-5 fw-bold">국내 축구</div>
+            
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active overflow-hidden">
+                    <img src="{% static 'image/a.png' %}" width="100%"height="200px"alt="">
+                  </div>
+                  <div class="carousel-item overflow-hidden">
+                    <img src="{% static 'image/b.png' %}" width="100%"height="200px" alt="">
+                  </div>
+                  <div class="carousel-item overflow-hidden">
+                    <img src="{% static 'image/c.png' %}" width="100%"height="200px" alt="">
+                  </div>
+                  <div class="carousel-item overflow-hidden">
+                    <img src="{% static 'image/d.png' %}" width="100%"height="200px" alt="">
+                  </div>
+                </div>
+              </div>
         </div>
         <div class="chat p-2 border">
-            <div>인기 토론방</div>
-            <ul>
-                <li>1.</li>
-                <li>2.</li>
-            </ul>
+            <div class="fs-5 fw-bold">인기 토론방</div>
+            <ol class="p-2">
+                {% for hot_chat in hot_chats %}
+                    <li class="p-1"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="{% url 'chat:chat_room' hot_chat.id %}">({{ hot_chat.current }}/{{ hot_chat.limit }}) {{ hot_chat.title }} </a></li>
+                {% endfor %}
+            </ol>
         </div>
     </div>
+
+    {% include 'footer.html' %}
 {% endblock %}
+
+

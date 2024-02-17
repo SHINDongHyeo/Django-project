@@ -16,10 +16,18 @@ def domestic(request):
     return render(request, 'community/domestic.html', context=context)
 
 def write(request):
-    return render(request, 'community/writepost.html')\
+    return render(request, 'community/writepost.html')
     
 def check(request):
     if request.method == "POST":
         print(request.POST)
         print(request.POST['content'])
     return render(request, 'community/check.html')
+
+def post(request, id):
+    post = Post.objects.filter(id=id).first()
+    print(post)
+    context ={
+        'post': post
+    }
+    return render(request, 'community/post.html', context=context)

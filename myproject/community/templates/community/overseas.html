@@ -19,7 +19,7 @@
         <tr>
             <td>{{ post.likes }}</td>
             <td>
-                <a href="">{{ post.subject }}</a>
+                <a href="{% url 'community:post' post.id %}">{{ post.subject }}</a>
             </td>
             <td>{{ post.author }}</td>
             <td>{{ post.timestamp }}</td>
