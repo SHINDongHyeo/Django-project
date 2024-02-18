@@ -489,7 +489,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 
 
-8. javascript 코드 작성
+7. javascript 코드 작성
 
 ```
 // 웹 소켓에 연결(routing.py에서 설정한 주소로 연결)
