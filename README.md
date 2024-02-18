@@ -183,12 +183,115 @@ python manage.py migrate
 
 <img width="591" alt="image" src="https://github.com/SHINDongHyeo/Django-project/assets/96512568/90de5245-2740-49eb-8318-286fe58eb4e2">
 
+<img width="467" alt="image" src="https://github.com/SHINDongHyeo/Django-project/assets/96512568/e210dcfa-f235-4b98-84f5-f946618f3563">
+
+
 - 설명
 
-일반적인 커뮤니티에 존재하는 게시물과 같이 유저가 게시물을 작성할 수 있고, 해당 게시물을 여러 유저가 '좋아요'를 눌러 추천할 수 있는 기능을 구현
+일반적인 커뮤니티에 존재하는 게시물과 같이 유저가 게시물을 작성할 수 있고, 해당 게시물을 여러 유저가 '좋아요'를 눌러 추천할 수 있는 기능을 구현. 또한 게시물에 댓글을 달 수 있고 댓글은 댓글에 대한 댓글을 달 수 있도록 구현(깊이가 무한히 깊어질 수 있게)
 
 - ERD
 
+<img width="700" alt="image" src="https://github.com/SHINDongHyeo/Django-project/assets/96512568/ae398897-bf71-4d5a-90b4-ab898a778842">
+
+유저는 여러 게시물을 작성할 수 있습니다. 하지만 여러 유저가 동시에 한 게시물을 작성할 수는 없습니다. 그러므로 유저와 게시물의 관계는 1:N 관계입니다.
+
+하지만 유저는 여러 게시물을 좋아할 수 있고, 여러 유저가 동시에 한 게시물을 좋아할 수도 있습니다. 그러므로 게시물 좋아요와 유저의 관계는 N:M 관계입니다.
+
+유저는 여러 댓글을 작성할 수 있습니다. 하지만 여러 유저가 동시에 한 댓글을 작성할 수는 없습니다. 그러므로 유저와 댓글의 관계는 1:N 관계입니다.
+
+게시물은 여러 댓글을 포함할 수 있습니다. 하지만 여러 게시물이 동시에 한 댓글을 포함할 수는 없습니다. 그러므로 게시물과 댓글을 관계는 1:N 관계입니다.
+
+- 구현 방법
+
+1. models.py 수정
+
+
+```
+from django.db import models
+from home.models import CustomUser
+from tinymce.models import HTMLField
+
+class Post(models.Model):
+    type = models.IntegerField(default=0)
+    likes = models.ManyToManyField(CustomUser, blank=True, related_name='like_users')
+    author = models.ForeignKey(CustomUser, related_name='written_posts', on_delete=models.CASCADE)
+    subject = models.CharField(max_length=255)
+    content = HTMLField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name='post_comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, related_name='user_comment', on_delete=models.CASCADE)
+    parent_comment = models.ForeignKey('self',null=True,blank=True, on_delete=models.CASCADE)
+    content = models.CharField(max_length=255)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+```
+
+2. migrate 진행
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
+3. views.py 수정
+
+
+
+```
+def post(request, id):
+    post = Post.objects.filter(id=id).first()
+    comments = Comment.objects.filter(post=id, parent_comment=None).order_by("timestamp") # parent_comment가 없는 댓글(최상위 댓글)들만 먼저 뽑아서 전달함
+ 
+    context ={
+        'post': post,
+        'comments':comments
+    }
+    return render(request, 'community/post.html', context=context)
+```
+
+4. html 수정
+
+댓글의 깊이를 표현하기 위해 재귀적으로 html 파일을 호출하는 방식 이용
+
+```
+# recomments.html
+
+<!-- 대댓글 -->
+<div class="ps-3">
+{% for comment in comments %}
+    <div class="p-3 card">{{ comment.content }}</div>
+    <div class="ps-3">
+    {% if comment.comment_set.all %}
+        {% for sub_comment in comment.comment_set.all %}
+            <div class="p-3 card">{{ sub_comment.content }}</div>
+            {% include 'community/recomments.html' with comments=sub_comment.comment_set.all %}
+        {% endfor %}
+    {% endif %}
+    </div>
+
+{% endfor %}
+</div>
+
+```
+
+댓글 깊이 별 div 마진 차이를 주어 쉽게 확인할 수 있도록 표현
+
+```
+# post.html
+
+...
+
+<div id="comments">
+    <div class="fw-bold">댓글</div>
+    {% for comment in comments %}
+        <div class="p-3 card">{{ comment.content }}</div>
+        {% include 'community/recomments.html' with comments=comment.comment_set.all %}
+    {% endfor %}
+</div>
+
+```
 
 
 
