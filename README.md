@@ -327,6 +327,9 @@ def mail_write_check(request):
 
 ## 실시간 채팅 기능
 
+<img width="534" alt="image" src="https://github.com/SHINDongHyeo/Django-project/assets/96512568/996550d4-4016-4b7d-9710-d2b8ac0e0af1">
+
+
 - 설명
 
 웹 사이트에 접속한 유저 간 실시간 채팅을 할 수 있는 기능 구현(`Channels` 활용)
@@ -414,6 +417,143 @@ application = ProtocolTypeRouter({
         )
     )
 })
+```
+
+5. routing.py 추가
+
+```
+from django.urls import path
+from .consumers import ChatConsumer
+
+websocket_urlpatterns = [
+    path('ws/chat/<int:room_id>', ChatConsumer.as_asgi()),
+]
+```
+
+6. consumers.py 추가
+
+```
+import json
+from channels.generic.websocket import AsyncWebsocketConsumer
+
+class ChatConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+
+        # 채팅방(Room) 이름을 URL 매개변수에서 가져와서 사용
+        self.room_id = self.scope['url_route']['kwargs']['room_id']
+        self.room_group_id = f"chat_{self.room_id}"
+        
+        # 채팅방 그룹에 참여
+        await self.channel_layer.group_add(
+            self.room_group_id,
+            self.channel_name
+        )
+    
+        await self.accept()
+
+    async def disconnect(self, close_code):
+        # 채팅방 그룹에서 나가기
+        await self.channel_layer.group_discard(
+            self.room_group_id,
+            self.channel_name
+        )
+        
+
+    async def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        message = text_data_json['message']
+        type = text_data_json['type']
+
+        # 채팅방 그룹에 메시지 브로드캐스트
+        await self.channel_layer.group_send(
+            self.room_group_id,
+            {
+                'type': 'chat.message',
+                'message': message,
+                'mytype': type
+            }
+        )
+
+  # 채팅방 그룹으로부터 메시지 수신
+    async def chat_message(self, event):
+        message = event['message']
+        type = event['mytype']
+
+        # WebSocket으로 메시지 전송
+        await self.send(text_data=json.dumps({
+            'message': message,
+            'type' : type
+        }))
+
+```
+
+
+
+8. javascript 코드 작성
+
+```
+// 웹 소켓에 연결(routing.py에서 설정한 주소로 연결)
+const socket = new WebSocket('ws://127.0.0.1:8000/ws/chat/{{ chatroom.id }}');
+
+// 웹 소캣에 연결되었을 경우
+socket.onopen = function() {
+    console.log('WebSocket 연결이 열렸습니다.');
+    var msg = "{{request.user.username }}님이 대화에 참여하셨습니다";
+    const message = {
+        'type': -1,
+        'message': msg
+    };
+    socket.send(JSON.stringify(message)); 
+};
+
+socket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    console.log('서버로부터 메시지를 받았습니다:', data.message);
+    var type = data.type;
+    var message = data.message;
+    console.log(type);
+    if (type == -1) {
+        var newDiv = document.createElement("div");
+        var newChat = document.createElement("div");
+        newDiv.classList = "d-flex justify-content-center"
+        newChat.classList = "border text-center"
+        newChat.textContent = data.message;
+        newDiv.append(newChat);
+        chatLog.append(newDiv);
+    }else if (type == {{ request.user.id }} ) {
+        var newDiv = document.createElement("div");
+        var newChat = document.createElement("div");
+        newDiv.classList = "d-flex justify-content-end"
+        newChat.classList = "d-inline-block rounded-2 bg-primary text-white border-bottom border-end"
+        newChat.textContent = data.message;
+        newDiv.append(newChat);
+        chatLog.append(newDiv);
+    }else {
+        var newDiv = document.createElement("div");
+        var newChat = document.createElement("div");
+        newDiv.classList = "d-flex justify-content-start"
+        newChat.classList = "d-inline-block rounded-3 bg-light text-dart border-bottom border-end"
+        newChat.textContent = data.message;
+        newDiv.append(newChat);
+        chatLog.append(newDiv);
+    };
+    chatLog.scrollTop = chatLog.scrollHeight;
+};
+
+socket.onclose = function() {
+    console.log('WebSocket 연결이 종료되었습니다.');
+};
+
+function send_msg(){
+    var msg = $('#chat-message-input').val();
+    const message = {
+        'type': {{ request.user.id }},
+        'message': msg
+    };
+    socket.send(JSON.stringify(message)); 
+    chatInput.value = "";
+};
+
 ```
 
 
