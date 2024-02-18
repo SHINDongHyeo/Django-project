@@ -18,10 +18,10 @@ ex)
 ## 📃구현 기능 목록
 - [장고 user 커스텀](#장고-user-커스텀)
 - [소셜 로그인 기능](#소셜-로그인-기능)
-- 게시물 기능
-- API 활용 기능
-- 쪽지 기능
-- 실시간 채팅 기능
+- [게시물 기능](#게시물-기능)
+- [API 활용 기능](#API-활용-기능)
+- [쪽지 기능](#쪽지-기능)
+- [실시간 채팅 기능](#실시간-채팅-기능)
 
 ## 장고 user 커스텀
 
@@ -179,7 +179,7 @@ python manage.py migrate
 
 
 
-## 3. 게시물 기능
+## 게시물 기능
 
 <img width="591" alt="image" src="https://github.com/SHINDongHyeo/Django-project/assets/96512568/90de5245-2740-49eb-8318-286fe58eb4e2">
 
@@ -192,7 +192,7 @@ python manage.py migrate
 
 
 
-## 4. API 활용 기능
+## API 활용 기능
 
 <img width="596" alt="image" src="https://github.com/SHINDongHyeo/Django-project/assets/96512568/723b10e5-34d6-48a3-948d-fe7e306f4bed">
 
@@ -242,7 +242,7 @@ json_data = requests.get("http://api.football-data.org/v4/competitions/PL/matche
 
 
 
-## 5. 쪽지 기능
+## 쪽지 기능
 
 <img width="594" alt="image" src="https://github.com/SHINDongHyeo/Django-project/assets/96512568/16ead48a-f4b6-4a9e-a212-ec7922f36166">
 
@@ -325,7 +325,7 @@ def mail_write_check(request):
             return JsonResponse(msg)
 ```
 
-## 6. 실시간 채팅 기능
+## 실시간 채팅 기능
 
 - 설명
 
