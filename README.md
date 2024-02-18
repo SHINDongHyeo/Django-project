@@ -1,5 +1,5 @@
 # <img src="https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white"/> Django-project
-## 개요
+## 🔎개요
 장고를 활용한 웹 사이트를 제작 연습입니다.
 
 - 주제
@@ -15,15 +15,15 @@ ex)
 
 
 
-## 구현 기능 목록
-1. 장고 user 커스텀
-2. 소셜 로그인 기능
-3. 게시물 기능
-4. API 활용 기능
-5. 쪽지 기능
-6. 실시간 채팅 기능
+## 📃구현 기능 목록
+- [장고 user 커스텀](#장고-user-커스텀)
+- [소셜 로그인 기능](#소셜-로그인-기능)
+- 게시물 기능
+- API 활용 기능
+- 쪽지 기능
+- 실시간 채팅 기능
 
-## 1. 장고 user 커스텀
+## 장고 user 커스텀
 
 - 설명
 
@@ -62,7 +62,7 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-## 2. 소셜 로그인 기능
+## 소셜 로그인 기능
 
 ![image](https://github.com/SHINDongHyeo/Django-project/assets/96512568/1278aa0b-e188-47e9-a909-82f79fc45ee7)
 
