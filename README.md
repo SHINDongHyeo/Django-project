@@ -1,7 +1,7 @@
 # <img src="https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white"/> Django-project
 ## 🔎개요
 장고를 활용한 웹 사이트를 제작 연습입니다.
-
+http://agzg.hiitnative.com/
 - 주제
   - 축구 커뮤니티⚽
 - 기술셋
