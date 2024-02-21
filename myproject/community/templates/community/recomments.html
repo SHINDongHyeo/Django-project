@@ -1,0 +1,27 @@
+<!-- 대댓글 -->
+<div class="ps-3">
+{% for comment in comments %}
+    <div id="{{ comment.id }}" class="p-3 card">{{ comment.content }}
+        <div class="d-flex justify-content-end">
+            <a onclick="recomment(this);" style="text-decoration: underline; font-size: 0.8rem;">
+                대댓글
+            </a>
+        </div>
+    </div>
+    <div class="ps-3">
+    {% if comment.comment_set.all %}
+        {% for sub_comment in comment.comment_set.all %}
+            <div id="{{ sub_comment.id }}" class="p-3 card">{{ sub_comment.content }}
+                <div class="d-flex justify-content-end">
+                    <a onclick="recomment(this);" style="text-decoration: underline; font-size: 0.8rem;">
+                        대댓글
+                    </a>
+                </div>
+            </div>
+            {% include 'community/recomments.html' with comments=sub_comment.comment_set.all %}
+        {% endfor %}
+    {% endif %}
+    </div>
+
+{% endfor %}
+</div>

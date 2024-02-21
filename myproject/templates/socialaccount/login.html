@@ -11,13 +11,23 @@
     <title>title</title>
 </head>
 <body>
-    <div>
-        <div>
-            해당 사이트는 구글 계정을 이용한 로그인 기능만을 제공합니다. 구글 계정으로 로그인 진행하시겠습니까?
+    <div class="d-flex justify-content-center">
+        
+
+        <div class="border rounded-2 p-3 bg-dark text-white m-2" style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-52%, -60%);
+            z-index: 1;
+            width: 300px;">
+            크롬 브라우저를 이용해야 구글 로그인 기능을 사용할 수 있습니다. 사파리, 파이어폭스나 카카오톡 링크 등을 통해 접속하는 경우 구글 로그인 기능을 사용할 수 없습니다
+            <div class="d-flex justify-content-center m-2">
             <form method="post" action="">
                 {% csrf_token %}
                 <button type="submit">구글 계정으로 시작하기</button>
             </form>
+            </div>
         </div>
     </div>
 </body>

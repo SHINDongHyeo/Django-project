@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="m-2">
+    <div class="m-2 p-2">
+        <div class="d-flex justify-content-center">
+            <img id="current_profile" src="/media/{{ request.user.profile }}" width="200" height="200">
+        </div>
+        <div class="d-flex justify-content-center">
+            <form method="post" action="/changeprofile/" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input id="after_profile" type="file" name="photo" onchange="show_after_profile(event);" accept="image/*">
+                <input type="submit" value="선택된 파일로 프로필 변경">
+            </form>
+        </div>
+    </div>
+    <div class="m-2 p-2 ">
+        <div class="d-flex justify-content-center"><p>닉네임 : {{ request.user.username }}</p></div>
+        <div class="d-flex justify-content-center"><p>레벨 : {{ request.user.level }}</p></div>
+        <div class="d-flex justify-content-center"><p>포인트 : {{ request.user.point }}</p></div>
+    </div>
+    <div class="m-2 p-2  ">
+        <p>내가 작성한 게시물</p>
+        <ul>
+        {% for written_post in written_posts %}
+            <li>{{ written_post.subject }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="m-2 p-2  ">
+        <p>내가 좋아요 누른 게시물</p>
+        <ul>
+        {% for like_post in like_posts %}
+            <li>{{ like_post.subject }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="m-2 p-2  ">
+        <p>내가 작성한 댓글</p>
+        <ul>
+        {% for written_comment in written_comments %}
+            <li>{{ written_comment.content }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+<script>
+    function show_after_profile(event){
+        var file = event.target.files[0]; // 선택된 파일 가져오기
+        var current_profile = document.getElementById("current_profile");
+        console.log(file);
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                console.log(e.target.result);
+                current_profile.src = e.target.result; // 선택된 파일의 데이터 URL을 이미지 태그에 할당
+            };
+            reader.readAsDataURL(file);
+        } else {
+            console.log('No file selected.');
+        }
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,333 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent; /* 왼쪽 변 */
+    border-right: 15px solid transparent; /* 오른쪽 변 */
+    border-top: 35px solid orange; /* 아래쪽 변 */
+}
+canvas {
+    transition: 2s;
+    
+}
+.roulette_items {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 2s ease-in-out;
+    opacity: 0.8;
+}
+
+
+ 
+</style>
+
+<div class="m-2">
+    
+    {% include 'point/point_games.html' %}
+    
+    <div id="game" class="p-2">
+        <div class="m-2 d-flex justify-content-between">
+            <button class="btn btn-primary" onclick="minus();">-</button>
+            <div class="triangle"></div>
+            <button class="btn btn-primary" onclick="plus();">+</button>
+        </div>
+        <div class="m-2 d-flex justify-content-center" style="position: relative;">
+            <canvas id="roulette" width="300" height='300'></canvas>
+
+            <div id="roulette_inputs" class="roulette_items border p-2 bg-light">
+                <div class="d-flex mb-1">
+                    <label for="1" class="d-flex m-1">
+                        <div style="background-color: #ABDEE6; width: 20px; height: 20px; margin:auto;"></div>
+                    </label>
+                    <input name="1" id="1" type="text">
+                </div>
+                
+                <div class="d-flex mb-1">
+                    <label for="2" class="d-flex m-1">
+                        <div style="background-color: #FFFFB5; width: 20px; height: 20px; margin:auto;"></div>
+                    </label>
+                    <input name="2" id="2" type="text">
+                </div>
+            </div>
+            
+        </div>
+        <div class="m-3 d-flex justify-content-center">
+            <button id="roulette_start" onclick="startRoulette();" class="m-1 btn btn-warning fw-bold" disabled>돌려!</button>
+            <button id="roulette_reset" onclick="resetRoulette();" class="m-1 btn btn-warning fw-bold" disabled>리셋</button>
+        </div>
+
+
+
+        <div id="result_zone" class="m-3 flex-column justify-content-center">
+            
+        </div>
+    </div>
+    
+    
+</div>
+
+
+<script>
+
+const colors = ["#ABDEE6", "#FFFFB5", "#FFCCB6",  "#CBAACB","#F3B0C3", "#FF968A", "#8FCACA", "#97C1A9", "black", "white"];
+// 캔버스 요소 가져오기
+const canvas = document.getElementById("roulette");
+const ctx = canvas.getContext("2d");
+const centerX = canvas.width / 2;
+const centerY = canvas.height / 2;
+const radius = 140;
+const angle = Math.PI / 210; // 시작 1 ~ 420
+
+function draw_piece(angle1, angle2, cnt){
+    // console.log(angle1,angle2,cnt);
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.lineTo(centerX + radius * Math.cos(angle1), centerY + radius * Math.sin(angle1));
+    ctx.arc(centerX, centerY, radius, angle1, angle2);
+    ctx.closePath();
+    ctx.fillStyle = colors[cnt];
+    ctx.fill();
+}
+// const = []
+var split_num = 2; // 이게 중요! 몇 개로 나눌건가 정하는 변수
+var splitted = 420/split_num;
+var start = 1;
+var end = splitted;
+var cnt = 0;
+while(end<=420){
+    
+    draw_piece(angle*start, angle*end, cnt);
+    cnt+=1;
+    start=end+1;
+    end+=splitted;
+    if (cnt==10){
+        break;
+    }
+}
+
+function plus(){
+    if (split_num<=6){
+        var roulette_inputs = document.getElementById("roulette_inputs");
+        typed_input_num = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var input = document.getElementById("1");
+        check_input(input);
+        split_num+=1;
+        ctx.clearRect(0, 0, radius*10, radius*10);
+        var splitted = 420/split_num;
+        var start = 1;
+        var end = splitted;
+        var cnt = 0;
+        while(end<=420){
+            
+            draw_piece(angle*start, angle*end, cnt);
+            cnt+=1;
+            start=end+1;
+            end+=splitted;
+            if (cnt==10){
+                break;
+            }
+        }
+        var new_input = document.createElement('div');
+        new_input.classList = "d-flex mb-1";
+        var new_label = document.createElement('label');
+        new_label.classList = "d-flex m-1";
+        new_label.htmlFor  = split_num;
+        var new_color = document.createElement('div');
+        new_color.style.backgroundColor = colors[split_num-1];
+        new_color.style.width = "20px";
+        new_color.style.height = "20px";
+        new_color.style.margin = "auto";
+        var new_ipnut2 = document.createElement('input');
+        new_ipnut2.name = split_num;
+        new_ipnut2.id = split_num;
+        new_ipnut2.type = "text";
+        new_label.appendChild(new_color);
+        new_input.appendChild(new_label);
+        new_input.appendChild(new_ipnut2);
+        roulette_inputs.appendChild(new_input);
+        input_func();
+    }else{
+        alert("7개가 최대입니다")
+    }
+};
+function minus(){
+    if (split_num>2){
+        var roulette_inputs = document.getElementById("roulette_inputs");
+        typed_input_num = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var input = document.getElementById("1");
+        check_input(input);
+        input_func();
+        split_num-=1;
+        ctx.clearRect(0, 0, radius*10, radius*10);
+        var splitted = 420/split_num;
+        var start = 1;
+        var end = splitted;
+        var cnt = 0;
+        while(end<=420){
+            
+            draw_piece(angle*start, angle*end, cnt);
+            cnt+=1;
+            start=end+1;
+            end+=splitted;
+            if (cnt==10){
+                break;
+            }
+        }
+        roulette_inputs.removeChild(roulette_inputs.lastElementChild);
+    }else{
+        alert("2개가 최소입니다")
+    }
+};
+
+    var rotateAngle_sum = 0;
+
+    function rotateRoulette(startTime, myrandom, rotateAngle, rotateAngle_sum, myrandom2,myrandom3) {
+        // console.log(rotateAngle);
+        const currentTime = Date.now();
+        const elapsedTime = currentTime - startTime;
+        // console.log("startTime",startTime);
+        // console.log("elapsedTime",elapsedTime);
+        // console.log("rotateAngle",rotateAngle);
+        // 1초가 지나면 회전 애니메이션 중지
+        if (elapsedTime < 1000 && rotateAngle<=1) {
+            rotateAngle+=myrandom;
+        }else if (rotateAngle >= 0.03) {
+            rotateAngle-=myrandom2;
+        }else{
+            rotateAngle-=myrandom3;
+        };
+        if (rotateAngle<=0){
+            stopRoulette(rotateAngle_sum);
+            return;
+        }
+        rotateAngle_sum+=rotateAngle;
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 지우기
+        ctx.translate(centerX, centerY); // 중심점을 기준으로 이동
+        ctx.rotate(rotateAngle); // 회전 변환 적용
+        ctx.translate(-centerX, -centerY); // 다시 원래 위치로 이동
+        ctx.clearRect(0, 0, radius*10, radius*10);
+        var splitted = 420/split_num;
+        var start = 1;
+        var end = splitted;
+        var cnt = 0;
+        while(end<=420){
+            draw_piece(angle*start, angle*end, cnt);
+            cnt+=1;
+            start=end+1;
+            end+=splitted;
+            if (cnt==10){
+                break;
+            }
+        }
+        
+        requestAnimationFrame(() => rotateRoulette(startTime, myrandom, rotateAngle, rotateAngle_sum, myrandom2, myrandom3)); // 다음 프레임 요청
+        
+    }
+    
+    let rotationTimer; // 회전 타이머 변수
+    function startRoulette(){
+        rotateAngle_sum = 0;
+        var typed_lists = document.getElementById("roulette_inputs");
+        var roulette_start = document.getElementById("roulette_start");
+        roulette_start.disabled = true;
+        var result_zone = document.getElementById("result_zone");
+        result_zone.append(typed_lists);   
+        typed_lists.classList.remove("roulette_items")
+
+        
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
+        const startTime = Date.now(); // 회전 애니메이션 시작 시간
+        const myrandom = Math.random() * (0.1 - 0.01) + 0.01;
+        const myrandom2 = Math.random() * (0.005 - 0.001) + 0.001;
+        const myrandom3 = Math.random() * (0.0005 - 0.0004) + 0.0004;
+        rotateRoulette(startTime, myrandom, 0.1,rotateAngle_sum, myrandom2,myrandom3); // 회전 애니메이션 시작
+        // 1초 후에 회전 애니메이션 중지
+        // rotationTimer = setTimeout(stopRoulette, 2000);
+    }
+    function stopRoulette(rotateAngle_sum) {
+        cancelAnimationFrame(rotationTimer); // 회전 애니메이션 중지
+        var resultAngle = rotateAngle_sum%(2*Math.PI);
+        var onePart = (2*Math.PI)/split_num;
+        // console.log(resultAngle,onePart);
+        var resultCnt = 0;
+        if (resultAngle>(Math.PI/2)*3){
+            // console.log("넘어감");
+            resultAngle-=(Math.PI*2);
+            
+            while(resultAngle<(Math.PI/2)*3){
+                resultAngle+=onePart;
+                resultCnt+=1;
+            }
+            // console.log(resultCnt);
+    
+        }else{
+            // console.log("안넘어감");
+            while(resultAngle<(Math.PI/2)*3){
+                resultAngle+=onePart;
+                resultCnt+=1;
+            }
+            // console.log(resultCnt);
+        }
+        var result_input = document.getElementById(`${resultCnt}`);
+        var resultImg = document.createElement('div');
+        resultImg.textContent = " 당첨🎉";
+        result_input.insertAdjacentElement('afterend', resultImg);
+        alert(result_input.value);
+        var roulette_reset = document.getElementById('roulette_reset');
+        roulette_reset.disabled = false;
+    }
+
+
+var typed_input_num = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+// 각 입력 필드 요소 가져오기
+function input_func(){
+    for (let i=1; i<=split_num; i++){
+        var input = document.getElementById(`${i}`);
+        // console.log(input);
+        input.addEventListener('input', function(event) {
+            check_input(this);
+        });
+
+
+    };
+    
+}
+input_func();
+
+function check_input(my){
+    if (my.value){
+        typed_input_num[my.id]=1;
+        // console.log(typed_input_num);
+    }else{
+        typed_input_num[my.id]=0;
+        // console.log(typed_input_num);
+    }
+    var result=1;
+    for(let i=1; i<=split_num; i++){
+        result = result * typed_input_num[i];
+    }
+    if (result==1){
+        var roulette_start = document.getElementById("roulette_start");
+        roulette_start.disabled = false;
+    }else{
+        var roulette_start = document.getElementById("roulette_start");
+        roulette_start.disabled = true;
+    }
+}
+
+
+function resetRoulette(){
+    console.log(split_num);
+    location.reload();
+}
+</script>
+
+
+{% endblock %}

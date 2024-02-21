@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
+</style>
 
 <div class="m-3">
     <div class="d-flex justify-content-between border-bottom border-top m-2">
@@ -15,9 +22,102 @@
     <div class="content border m-2">
         {{ post.content|safe }}
     </div>
+
+    <div class="m-3 d-flex justify-content-center">
+        <button id="likeit">{{ post.likes.all.count }} 추천</button>
+    </div>
+
+
+    <div id="comments" class="pb-5">
+        <div class="p-2 d-flex justify-content-between">
+            <textarea name="my_comment" id="my_comment" style="width:80%"></textarea>
+            <button id="commenting" style="width:20%; font-size: 0.6rem;">댓글등록</button>
+        </div>
+        
+        
+        <div id="comment_list" class="fw-bold">댓글</div>
+        {% for comment in comments %}
+            <div id="{{ comment.id }}" class="p-3 card">{{ comment.content }}
+                <div class="d-flex justify-content-end">
+                    <a onclick="recomment(this);" style="text-decoration: underline; font-size: 0.8rem;">
+                        대댓글
+                    </a>
+                </div>
+            </div>
+            {% include 'community/recomments.html' with comments=comment.comment_set.all %}
+        {% endfor %}
+    </div>
 </div>
 
+<script>
+$(document).ready(function(){
+    $("#likeit").click(function(){
+        $.ajax({
+            url: '/community/likeit',  // 요청을 보낼 URL
+            type: 'GET',  // 요청 메서드
+            data: {
+                postid: '{{ post.id }}',
+            },  // 요청에 포함할 데이터
+            success: function(response){
+                console.log(response.like_num);
+                $("#likeit").text(response.like_num+" 추천");
+            },
+            error: function(xhr, status, error){
+                console.log("error");
+            }   
+        });
+    });
+});
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+$(document).ready(function(){
+    $("#commenting").click(function(){
+        var my_comment = document.getElementById("my_comment").value;
+        $.ajax({
+            url: '/community/commenting',  // 요청을 보낼 URL
+            type: 'POST',  // 요청 메서드
+            data: {
+                postid: '{{ post.id }}',
+                my_comment: my_comment,
+            },  // 요청에 포함할 데이터
+            headers: {'X-CSRFToken': csrftoken},
+            success: function(response){
+                window.location.href = "/community/post/{{ post.id }}";
+                console.log(response);
+                // location.reload();
+            },
+            error: function(xhr, status, error){
+                console.log("error");
+            }   
+        });
+    });
+});
 
+
+
+
+function recomment(ele){
+    var recommet_flag = document.getElementById("recommet_flag");
+    if (!recommet_flag){
+        var recomment_id = ele.parentNode.parentNode.id;
+        var comment_div = ele.parentNode.parentNode;
+        
+        var newDiv = `<form id="recommet_flag" method="post" action="/community/recommenting/{{post.id}}" class="p-2 d-flex justify-content-between">
+            {% csrf_token %}
+            <input type="text" id="recomment_id" name="recomment_id" value=${recomment_id} style="display: none;">
+            <textarea name="my_recomment" id="my_recomment" style="width:80%"></textarea>
+                <button id="recommenting" style="width:20%; font-size: 0.6rem;">댓글등록</button>
+            </form>
+            `;
+        comment_div.insertAdjacentHTML('afterend', newDiv);
+        
+    }else{
+        recommet_flag.remove();
+    }
+    
+}
+
+
+</script>
 
 
 {% endblock %}

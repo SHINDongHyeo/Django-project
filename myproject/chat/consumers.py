@@ -28,6 +28,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         type = text_data_json['type']
+        print(message, type)
 
         # 채팅방 그룹에 메시지 브로드캐스트
         await self.channel_layer.group_send(

@@ -1,28 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load static %}
+<style>
+    @media (max-width:575px){
+        #first {
+            width: 70px;
+        }
+        #second {
+            width: 200px;
+        }
+        #third {
+            width: 70px;
+        }
+        #fourth {
+            width: 140px;
+        }
+
+    }
+</style>
 <div class="container my-3">
-    <button onclick="location.href='/community/writepost'">게시물 작성</button>
+    <br>
+    <div class="m-2 d-flex justify-content-end">
+        <button onclick="location.href='/community/writepost/?type=0'" class="btn btn-primary">게시물 작성</button>
+    </div>
 
     <table class="table">
         <thead>
         <tr class="table-dark">
-            <th>추천</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일시</th>
+            <th id="first" style="text-align: center;">추천</th>
+            <th id="second" style="text-align: center;">게시물</th>
         </tr>
         </thead>
         <tbody>
         {% if posts %}
         {% for post in posts %}
         <tr>
-            <td>{{ post.likes }}</td>
+            <td style="text-align: center; vertical-align: middle;">{{ post.likes.all.count }}</td>
             <td>
-                <a href="{% url 'community:post' post.id %}">{{ post.subject }}</a>
+                <a href="{% url 'community:post' post.id %}">{{ post.subject }}</a><br>
+                {{ post.author }} / {{ post.timestamp|date:"Y/m/d g:i A" }}
             </td>
-            <td>{{ post.author }}</td>
-            <td>{{ post.timestamp }}</td>
         </tr>
         {% endfor %}
         {% else %}
@@ -32,5 +50,91 @@
         {% endif %}
         </tbody>
     </table>
+
+    <!-- 페이지네이션 -->
+    <div class="pagination d-flex justify-content-center">
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item" style="border: 0;;">
+                <button style="border:0; background-color: white;" type="button" class="page_link"
+                onclick="location.href='/community/overseas/?page=1'"
+                id="very_before"><<</button>
+            </li>
+            <li class="list-group-item" style="border: 0;;">
+                <button style="border:0; background-color: white;"  type="button" class="page_link"
+                id="before_pages"><</button>
+            </li>
+
+            <!-- 자바스크립트로 페이지네이션 숫자 생성 -->
+            <div id="js_pagination" class="d-flex">
+
+            </div>
+
+            <li class="list-group-item" style="border: 0;;">
+                <button style="border:0; background-color: white;"  type="button" class="page_link"
+                id="after_pages">></button>
+            </li>
+            <li class="list-group-item" style="border: 0;;">
+                <button style="border:0; background-color: white;"  type="button" class="page_link"
+                onclick="location.href='/community/overseas/?page={{ pagination_nums }}'"
+                id="very_after">>></button>
+            </li>
+        </ul>
+    </div>
 </div>
+
+<script>
+var max_page = 5;
+var start_page = Math.floor(({{ page }}-1) / max_page) * max_page + 1;
+
+if ( start_page+max_page-1 <= {{ pagination_nums }} ) {
+    var end_page = start_page+max_page-1;
+}else{
+    var end_page = {{ pagination_nums }};
+};
+console.log(max_page, start_page,end_page);
+for(let i=start_page; i<end_page+1; i++){
+    $('#js_pagination').append(`
+    <li class="list-group-item ps-1 pe-1" id=${i} style="border: 0;;">
+        <button style="border:0; background-color: white;" type="button" class="page_link"
+        onclick="location.href='/community/overseas/?page=${i}'">
+        ${i}
+        </button>
+    </li>
+`);
+}
+
+
+var page = {{ page }}
+$(`#${page}`).addClass("active");
+
+
+console.log(page);
+console.log(Math.floor({{ pagination_nums }}/max_page)*max_page+1);
+console.log({{ pagination_nums }});
+if (page <= 5){
+    $('#before_pages').prop('disabled', true);
+    $('#very_before').prop('disabled', true);
+};
+if (page >= Math.floor({{ pagination_nums }}/max_page)*max_page+1  && page <= {{ pagination_nums }} ){
+    $('#after_pages').prop('disabled', true);
+    $('#very_after').prop('disabled', true);
+};
+
+
+var after_pages = Math.floor((page+max_page-1) / max_page) * max_page +1
+$(document).ready(function() {
+    // 버튼을 선택하고 클릭 이벤트를 추가
+    $('#after_pages').click(function() {
+        window.location.href = `/community/overseas/?page=${after_pages}`;
+    });
+});
+var before_pages = Math.floor((page-max_page-1) / max_page) * max_page +1
+$(document).ready(function() {
+    // 버튼을 선택하고 클릭 이벤트를 추가
+    $('#before_pages').click(function() {
+        window.location.href = `/community/overseas/?page=${before_pages}`;
+    });
+});    
+
+</script>
 {% endblock %}

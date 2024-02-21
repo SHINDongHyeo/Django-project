@@ -26,6 +26,7 @@
         a {
             text-decoration: none;
         }
+        
     </style>
     <header class="bg-dark text-white">
         <div class="header_container">
@@ -48,8 +49,8 @@
                                         커뮤니티
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="/community/overseas">해외축구</a></li>
-                                        <li><a class="dropdown-item" href="/community/domestic">국내축구</a></li>
+                                        <li><a class="dropdown-item" href="/community/overseas/?page=1">해외축구</a></li>
+                                        <li><a class="dropdown-item" href="/community/domestic/?page=1">국내축구</a></li>
                                     </ul>
                                 </li>
 
@@ -92,11 +93,13 @@
                             </ul>
                             <div class="text-end ms-auto">
                                 {% if request.user.is_authenticated %}
-                                    <p>
-                                        {{ request.user }} lv.{{ request.user.level }}
-                                    </p>
+                                    <div style="display: inline-block;">
+                                        <img src="/media/{{ request.user.profile }}" alt="" width="50" height="50">
+                                    </div>
+                                    {{ request.user }} lv.{{ request.user.level }}
+                                    
                                     <p style="color:white; font-size: 0.75rem; margin:0;">
-                                        포인트{{ request.user.point }} 
+                                        포인트<span id="mypoint">{{ request.user.point }} </span>
                                         <a href="/mail/receive/?page=1">쪽지</a>
                                     </p>
                                     
@@ -108,7 +111,9 @@
                                     </form>
                                 {% else %}
                                     <button type="button" class="btn btn-warning"
-                                        onclick="location.href='accounts/google/login/'">로그인</button>
+                                        onclick="location.href='/accounts/login/'">로그인</button>
+                                    <button type="button" class="btn btn-warning"
+                                        onclick="location.href='/accounts/signup/'">회원가입</button>
                                 {% endif %}
                             </div>
                         </div>

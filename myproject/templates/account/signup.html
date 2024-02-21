@@ -1,0 +1,75 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <script src = "{% static 'js/bootstrap.min.js' %}"></script>
+    <title>title</title>
+</head>
+<body>
+    <div class="d-flex justify-content-center">
+        <div class="border rounded-2 p-3 bg-light m-2" style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-52%, -55%);
+            z-index: 1;
+            width: 300px;">
+
+<h1>회원가입</h1>
+
+
+<form method="post" action="/accounts/signup/">
+    {% csrf_token %}
+    <p>
+<label for="id_username">ID:</label>
+<input type="text" name="username" placeholder="ID" autocomplete="username" minlength="1" maxlength="150" required="" id="id_username">
+
+
+</p>
+
+
+
+
+<p>
+<label for="id_password1">Password:</label>
+<input type="password" name="password1" placeholder="Password" autocomplete="new-password" required="" aria-describedby="id_password1_helptext" id="id_password1">
+
+<span class="helptext" id="id_password1_helptext"></span></p><ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>
+
+
+<p></p>
+
+
+<p>
+<label for="id_password2">Password (again):</label>
+<input type="password" name="password2" placeholder="Password (again)" autocomplete="new-password" required="" id="id_password2">
+
+
+
+
+</p>
+
+    
+
+
+    
+
+<button class="btn btn-primary" type="submit">
+
+        Sign Up
+    
+</button>
+
+
+</form>
+
+        </div>
+    </div>
+
+</body>
+</html>

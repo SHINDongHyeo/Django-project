@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<button onclick="location.href='/point/gain'">포인트 추가</button>
-<button onclick="location.href='/point/lose'">포인트 감소</button>
-<!-- <button>포인트 추가</button>
-<button>포인트 추가</button> -->
 
+<div class="m-2">
+    {% include 'point/point_games.html' %}
+    
+    
 {% endblock %}

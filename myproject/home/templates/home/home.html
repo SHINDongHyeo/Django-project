@@ -7,11 +7,18 @@
         justify-content: center;
     }
     .banner {
-        width:480px;
-        height: 270px;
+        width:320px;
+        height: 180px;
+    }
+    .point_rank{
+        width:160px;
+        height: 270px;  
     }
     .hot_community{
-        width:480px;
+        width:240px;
+    }
+    .recent_community{
+        width:240px;
     }
     .content2{
         display: flex;
@@ -37,8 +44,22 @@
             width: 100%;
             height: 100%;
         }
+        .point_rank{
+            display: inline-block;
+            width: 47%;
+            height: 240px;
+            font-size: 0.5rem;
+            vertical-align: top; /* 요소를 상단에 정렬 */
+        }
         .hot_community{
-            width:100%;
+            width: 100%;
+            height: 240px;
+        }
+        .recent_community{
+            display: inline-block;
+            vertical-align: top; /* 요소를 상단에 정렬 */
+            width: 50%;
+            height: 240px;
         }
         .content2{
             display: block;
@@ -54,7 +75,9 @@
         }
     }
 </style>
+    {% load static %}
     <div class="content1 m-3 p-2 border">
+
         <div class="banner border p-2">
             <a href="https://www.youtube.com/watch?v=4jS2bAJf5HI" target="_blank">
                 <img src="https://img.youtube.com/vi/4jS2bAJf5HI/maxresdefault.jpg" alt=""
@@ -62,7 +85,26 @@
             </a>
         </div>
 
+        <div class="point_rank border p-2">
+            <div class="fs-5 fw-bold">포인트 랭킹</div>
+            <ol class="p-2">
+                <li class="p-1"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><img src="{% static 'image/1.png'  %}"width="20"height="20" alt="">{{ point_rankers.0.username }} : {{ point_rankers.0.point }}</li>
+                <li class="p-1"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><img src="{% static 'image/1.png'  %}"width="20"height="20" alt="">{{ point_rankers.1.username }} : {{ point_rankers.1.point }}</li>
+                <li class="p-1"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><img src="{% static 'image/1.png'  %}"width="20"height="20" alt="">{{ point_rankers.2.username }} : {{ point_rankers.2.point }}</li>
+                <li class="p-1"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ point_rankers.3.username }} : {{ point_rankers.3.point }}</li>
+                <li class="p-1"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ point_rankers.4.username }} : {{ point_rankers.4.point }}</li>
+            </ol>
+        </div>
 
+        <div class="recent_community border p-2">
+            <div class="fs-5 fw-bold">최근 게시물</div>
+            <ol class="p-2">
+                {% for recent_post in recent_posts %}
+                    <li class="p-1"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="{% url 'community:post' recent_post.id %}">{{ recent_post.subject }}</a></li>
+                {% endfor %}
+            </ol>
+        </div>
+        
         <div class="hot_community border p-2">
             <div class="fs-5 fw-bold">인기 게시물</div>
             <ol class="p-2">
@@ -71,6 +113,8 @@
                 {% endfor %}
             </ol>
         </div>
+        
+        
     </div>
 
     <div class="content2 m-3 p-2 border">

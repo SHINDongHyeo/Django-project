@@ -15,9 +15,30 @@
 <div class="m-3">
     <form method="post" action="/community/check">
         {% csrf_token %}
+        <label for="type">게시판:</label>
+        <select name="type" id="type">
+            <option id="talk" value="talk">잡담</option>
+            <option id="overseas" value="overseas">해외축구</option>
+            <option id="domestic" value="domestic">국내축구</option>
+        </select><br>
+        <label for="subject">제목</label>
+        <input type="text" id="subject" name="subject" style="width:100%;"><br><br>
         <textarea name="content" id="content"></textarea>
-        <button type="submit">작성완료</button>
+        <div class="d-flex justify-content-end p-2">
+            <button class="btn btn-primary" type="submit">작성완료</button>
+        </div>
     </form>
 </div>
 
+<script>
+    console.log({{type }});
+    if ({{ type }} == 0){
+        document.getElementById("overseas").selected=true;
+    }else if ({{ type }} == 1){
+        document.getElementById("domestic").selected=true;
+    }else if ({{ type }} == 2){
+        document.getElementById("talk").selected=true;
+    }
+
+</script>
 {% endblock %}

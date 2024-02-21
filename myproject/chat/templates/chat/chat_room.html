@@ -32,6 +32,7 @@
 
 
 <script>
+    var recent_speaker = {{request.user.id}};
     var chatLog = document.getElementById("chat-log");
     var chatInput = document.getElementById("chat-message-input");
     chatInput.focus();
@@ -54,7 +55,7 @@
         console.log('서버로부터 메시지를 받았습니다:', data.message);
         var type = data.type;
         var message = data.message;
-        console.log(type);
+
         if (type == -1) {
             var newDiv = document.createElement("div");
             var newChat = document.createElement("div");
@@ -63,19 +64,32 @@
             newChat.textContent = data.message;
             newDiv.append(newChat);
             chatLog.append(newDiv);
-        }else if (type == {{ request.user.id }} ) {
+        }else if (type[0] == {{ request.user.id }} ) {
+            recent_speaker = {{ request.user.id }};
             var newDiv = document.createElement("div");
             var newChat = document.createElement("div");
             newDiv.classList = "d-flex justify-content-end"
-            newChat.classList = "d-inline-block rounded-2 bg-primary text-white border-bottom border-end"
+            newChat.classList = "ps-2 pe-2 d-inline-block rounded-2 bg-primary text-white border-bottom border-end"
             newChat.textContent = data.message;
             newDiv.append(newChat);
             chatLog.append(newDiv);
-        }else {
+        } else {
+            if (recent_speaker != type[0]) {
+                var speaker = document.createElement("div");
+                var profile = document.createElement("img");
+                profile.src = "/media/"+type[2];
+                profile.width = 45;
+                profile.height = 45;
+                speaker.append(profile);
+                speaker.classList = "d-flex justify-content-start fw-bold align-middle"
+                speaker.append(type[1]);
+                chatLog.append(speaker);
+                recent_speaker = type[0]
+            }
             var newDiv = document.createElement("div");
             var newChat = document.createElement("div");
             newDiv.classList = "d-flex justify-content-start"
-            newChat.classList = "d-inline-block rounded-3 bg-light text-dart border-bottom border-end"
+            newChat.classList = "ps-2 pe-2 d-inline-block rounded-3 bg-light text-dart border-bottom border-end"
             newChat.textContent = data.message;
             newDiv.append(newChat);
             chatLog.append(newDiv);
@@ -90,7 +104,7 @@
     function send_msg(){
         var msg = $('#chat-message-input').val();
         const message = {
-            'type': {{ request.user.id }},
+            'type': [{{ request.user.id }}, "{{ request.user.username }}", "{{ request.user.profile }}"],
             'message': msg
         };
         socket.send(JSON.stringify(message)); 

@@ -7,3 +7,4 @@ class CustomUser(AbstractUser):
     level = models.IntegerField(default=0)
     notread = models.IntegerField(default=0)
     reported = models.IntegerField(default=0)
+    profile = models.ImageField(upload_to='profile_images/', default='default_profile.jpg', blank=True)
