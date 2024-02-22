@@ -11,4 +11,5 @@ urlpatterns = [
     path('rouletteBat/save/', views.save, name="save"),
     path('hardRoulette/', views.hardRoulette, name="hardRoulette"),
     path('hardRouletteBat/', views.hardRouletteBat, name="hardRouletteBat"),
+    path('matchBat/', views.matchBat, name="matchBat"),
 ]

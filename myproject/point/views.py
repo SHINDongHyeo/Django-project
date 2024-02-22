@@ -43,3 +43,6 @@ def save(request):
         'renewPoint': user.point,
     }
     return JsonResponse(data)
+
+def matchBat(request):
+    return render(request, 'point/hardRouletteBat.html')

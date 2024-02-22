@@ -3,13 +3,43 @@
 {% block content %}
 <script src="https://cdn.tiny.cloud/1/ikjsg21ttf2czf2karye0pt3q5qrlf0tqyau4y9zz6yy3o8n/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-    tinymce.init({
-        selector: 'textarea',  // 에디터가 적용될 텍스트 영역을 선택합니다.
-        plugins: 'advlist autolink lists link image charmap print preview anchor',
-        toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link image',
-        width: '100%',
-        height: 500,
-    });
+const csrf_token = $("[name=csrfmiddlewaretoken]").val();
+tinymce.init({
+  selector: 'textarea#local-upload',
+  plugins: 'image code',
+  toolbar: 'undo redo | image code | bold italic | alignleft aligncenter alignright alignjustify | outdent indent',
+  width : "100%",
+  height : "80vh",
+  /* without images_upload_url set, Upload tab won't show up*/
+//   images_upload_url: 'postAcceptor.php',
+
+  /* we override default upload handler to simulate successful upload*/
+  images_upload_handler: function (blobInfo, success_msg, failure_msg, progress) {
+    setTimeout(function () {
+        var formData = new FormData();
+        formData.append("file", blobInfo.blob());
+        $.ajax({
+            type:'POST',
+            url:'postImg/',
+            data: formData,
+            headers:{
+                "X-CSRFToken":csrf_token
+            },
+            contentType: false,
+            processData: false,
+            success: function(response){
+                success_msg(response.saved_file_path);
+            },
+            error: function(xhr, errmsg, err) {
+                console.error(xhr, errmsg, err);
+            }
+        })
+    }, 2000);
+  },
+  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+});
+
+    
 </script>
 
 <div class="m-3">
@@ -23,7 +53,7 @@
         </select><br>
         <label for="subject">제목</label>
         <input type="text" id="subject" name="subject" style="width:100%;"><br><br>
-        <textarea name="content" id="content"></textarea>
+        <textarea id="local-upload" name="local-upload"></textarea>
         <div class="d-flex justify-content-end p-2">
             <button class="btn btn-primary" type="submit">작성완료</button>
         </div>
