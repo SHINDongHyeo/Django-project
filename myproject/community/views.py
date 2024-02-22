@@ -70,7 +70,6 @@ def check(request):
             type=1
         subject = request.POST.get("subject")
         content = request.POST.get("local-upload")
-        print("content",content)
         writing_post = Post.objects.create(
             type=type,
             author=request.user,

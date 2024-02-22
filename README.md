@@ -665,4 +665,148 @@ function send_msg(){
 
 - 설명
 
-장고에서는 셀러리(Celery)를 이용해 특정한 작업을 특정 시간마다 실행할 수 있도록 할 수 있습니다.
+장고에서는 여러 스케줄러를 이용해 원하는 작업을 특정 시간마다 실행할 수 있도록 할 수 있습니다. 해당 스케줄러로는 다양한 것들이 존재합니다.
+
+1. 셀러리(celery)
+2. 
+
+- 구현 방법 : 셀러리(celery)
+
+1. 설치 
+
+```
+pip install 'celery[redis]'
+
+pip install django_celery_beat
+
+pip install django_celery_results
+
+
+sudo apt-get install redis-server # 우분투 경우
+```
+윈도우의 경우 https://github.com/microsoftarchive/redis/releases 링크에서 msi 파일을 다운받아 직접 설치하면 됩니다.
+
+설치 완료 후 redis 정상 작동을 확인하기 위해서는 터미널창에서 아래 명령어를 통해 확인합니다.
+
+```
+redis-server # redis-server 실행
+
+redis-cli # redis-client 실행. 이후 ping이라고 타이핑해봄
+ping
+PONG # ping에 대한 대답으로 PONG이 출력되면 정상
+```
+
+2. myproject/__init__.py 수정
+
+```
+from .celery import app as celery_app
+
+__all__ = ['celery_app']
+```
+
+3. myproject/celery.py 수정
+
+```
+from __future__ import absolute_import, unicode_literals
+import os
+
+from celery import Celery
+
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproject.settings')
+
+app = Celery('myproject')
+app.config_from_object('django.conf:settings', namespace='CELERY')
+app.autodiscover_tasks()
+
+
+@app.task(bind=True)
+def debug_task(self):
+    print('Require: {0!r}'.format(self.request))
+```
+
+4. myproject/settings.py 수정
+
+```
+
+INSTALLED_APPS = [
+    ...
+
+    'django_celery_beat',
+    'django_celery_results',
+]
+
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Seoul'
+CELERY_BEAT_SCHEDULE = {
+    'task-number-one': {
+        'task': 'home.tasks.celery_check',  # 실행하고 싶은 작업(home app 하위 tasks.py 파일 안 celery_check 함수 실행)
+        'schedule':10.0,
+    }
+}
+```
+
+5. home/celery.py 수정
+
+```
+from celery import shared_task
+from django.db import transaction
+
+import logging
+
+logger = logging.getLogger(__name__)
+
+@shared_task()
+def celery_check():
+    with open("test.txt", "a")  as f:
+        f.write("확인")
+
+    logger.info("Starting to update congestion data.")
+    
+```
+
+
+6. celery beat, worker 실행
+beat는 작업 일정을 알려주고, worker는 작업 일정대로 일한다라고 생각하면 쉽습니다. 아래 명령어는 내 장고 프로젝트 최상단 경로에서 터미널창을 이용해 실행합니다.(앱 폴더들이 위치한 경로)
+
+- celery beat
+
+```
+celery -A myproject beat -l info
+```
+
+저는 위에서 settings.py를 보시면 schedule(일 시킬 시간 주기)을 10.0초로 설정했습니다.
+
+```
+CELERY_BEAT_SCHEDULE = {
+    'task-number-one': {
+        'task': 'home.tasks.celery_check',  # 실행하고 싶은 작업(home app 하위 tasks.py 파일 안 celery_check 함수 실행)
+        'schedule':10.0,
+    }
+}
+```
+
+그러므로 10초마다 결과물이 화면에 출력되는 모습을 확인할 수 있습니다. 하지만 해당 결과는 작업을 예정해 놓기만 한 것이고 실제로 실행한 것은 아니므로 실질적인 결과물은 아직 확인할 수 없습니다.
+
+- celery worker
+
+
+```
+celery -A myproject worker -l info
+```
+
+위 명령어를 통해 실제 예정된 작업들이 수행되고 해당 결과도 확인할 수 있습니다. 저의 경우 실행되는 파일인 home앱 tasks.py 코드의 celery_check함수의 작업이 test.txt라는 파일을 열고 "확인"이라는 텍스트를 계속해서 추가하는 작업이었기 때문에 계속해서 "확인"이라는 문구가 적힌 test.txt 파일을 확인할 수 있습니다.
+
+⚠️ 에러
+여기서 만약 정상적으로 worker 실행이 되지 않는 경우가 있을 수 있습니다. 보통 윈도우에서 이런 경우가 많이 발생하고 이는 celery가 더 이상 윈도우에서 서비스를 지원하지 않기 때문입니다. 이를 위해서 아래와 같은 방법으로 간단하게 에러를 해결할 수도 있습니다. gevent 설치 후 해당 옵션을 사용하는 것입니다.
+
+```
+pip install gevent
+
+celery -A config worker -l info -P gevent
+```
