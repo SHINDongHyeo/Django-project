@@ -22,7 +22,8 @@ ex)
 - [API 활용 기능](#API-활용-기능)
 - [쪽지 기능](#쪽지-기능)
 - [실시간 채팅 기능(Channels)](#실시간-채팅-기능)
-- [스케줄러를 통한 자동화(Celery)](#스케줄러를-통한-자동화)
+- [스케줄러를 통한 자동화(Celery/Apscheduler)](#스케줄러를-통한-자동화)
+- 로그 남기기
 
 ## 장고 user 커스텀
 
@@ -810,3 +811,121 @@ pip install gevent
 
 celery -A config worker -l info -P gevent
 ```
+
+- 구현 방법 : Apscheduler
+
+apscheduler는 간단하게 스케줄 기능을 활용할 수 있는 라이브러리입니다.
+
+1. 설치
+```
+pip install apscheduler
+```
+2. settings.py 수정
+```
+INSTALLED_APPS = [
+      ...
+    'django_apscheduler',
+]
+```
+
+3. views.py 수정
+
+아래 설정은 2024년 동안 매초 실행되는 함수를 설정했습니다.
+```
+from apscheduler.schedulers.background import BackgroundScheduler
+sched = BackgroundScheduler()
+
+@sched.scheduled_job('cron',year='2024',month='*',day='*',hour='*', minute = '*',second='*' ,name = 'schedulerName')
+def my_schedule():
+    print("스케줄링 확인")
+
+# sched.start()
+```
+
+
+## 로그 남기기
+
+- 설명
+
+24시간 서비스를 진행하다보면 나도 모르는 사이에 에러가 발생할 수 있기 때문에, 이런 에러가 언제부터 왜 발생했는지 확인하기 위해서는 로그 남기는 행위가 필수라고 생각되어 첨가하였습니다.
+
+- 구현 방법
+
+1. settings.py 수정
+```
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'formatters': {
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[{server_time}] {message}',
+            'style': '{',
+        },
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s' ######## 로그 문자열 형식 ########
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'file': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BASE_DIR / 'logs/mysite.log', ######## 로그 파일 생성할 디렉토리 경로 #######
+            'maxBytes': 1024*1024*5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'standard',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'mail_admins','file'],
+            'level': 'INFO',
+        },
+        'django.server': {
+            'handlers': ['django.server'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    }
+}
+```
+
+2. views.py 수정
+```
+import logging
+logger = logging.getLogger('django')
+
+def 수정할함수(request):
+  ...
+  logger.info("로그로 남길 부분")
+  ...
+
+```
+
+만약 장고 프로젝트 실행 후 위에서 설정된 '수정할함수'가 실행된다면 log가 남을 것이고 해당 log는 settings.py에서 설정한 경로에 설정한 문자열 형식으로 저장됩니다.
+
+
